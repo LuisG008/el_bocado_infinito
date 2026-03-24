@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+
+<head>
+    <!-- Libreria boostrap -->
+    <link rel="stylesheet" href="/lib/node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/lib/node_modules/bootstrap-icons/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="/lib/node_modules/izitoast/dist/css/iziToast.min.css">
+
+
+    <link rel="stylesheet" href="/css/ui.css">
+    <link rel="stylesheet" href="/css/pedidos.css">
+</head>
+<div>
+    <div class="div-principal-pedidos">
+        <!-- navbar -->
+        <nav class="navbar navbar-light color-institucional">
+            <div class="container-fluid">
+                <a class=""></a>
+                <form class="d-flex">
+                    <input class="form-control me-2" type="search" placeholder="Buscador" aria-label="Search" id="buscador">
+
+                </form>
+            </div>
+        </nav>
+        <!-- Fin navbar -->
+
+        <!-- Boton flotante crear -->
+        <button class="btn btn-warning position-fixed bottom-0 end-0 m-4" data-bs-toggle="modal"
+            data-bs-target="#crearUsuario">
+            <i class="bi bi-plus-lg me-2"></i>Crear
+        </button>
+        <!-- FInBoton flotante crear -->
+
+        <div class="div-secundario-pedidos">
+            <div class="spinner-border text-warning d-none" role="status" style="width: 3.5rem; height: 3.5rem;">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <div class="tabla">
+                <table class="table table-hover" style="background-color: #FFF3CD;">
+                    <thead>
+                        <tr>
+                            <th scope="col"># usuario</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">telefono</th>
+                            <th scope="col">Rol</th>
+                            <th scope="col">Clave</th>
+                            <th scope="col">Estado</th>
+                            <th scope="col">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabla-usuarios">
+                        <!-- <tr>
+                            <th>1010141548</th>
+                            <td>Carlos Andres Torres</td>
+                            <td>3136485659</td>
+                            <td>Administrador</td>
+                            <td>*****</td>
+                            <td><span class="badge bg-success">Activo</span></td>
+                            <td><i class="bi bi-pencil-square me-2" data-bs-toggle="modal"
+                                    data-bs-target="#editarUsuario"></i>
+                                <i class="bi bi-dash-circle-fill text-danger"></i>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>31431948</th>
+                            <td>Jacob Perez</td>
+                            <td>3009845612</td>
+                            <td>Caja</td>
+                            <td>*****</td>
+                            <td><span class="badge bg-success">Activo</span></td>
+                            <td><i class="bi bi-pencil-square me-2" data-bs-toggle="modal"
+                                    data-bs-target="#editarUsuario"></i>
+                                <i class="bi bi-dash-circle-fill text-danger"></i>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>1087965456</th>
+                            <td>Andres Gomez</td>
+                            <td>3119654852</td>
+                            <td>Cocina</td>
+                            <td>*****</td>
+                            <td><span class="badge bg-danger">Inactivo</span></td>
+                            <td><i class="bi bi-pencil-square me-2" data-bs-toggle="modal"
+                                    data-bs-target="#editarUsuario"></i>
+                                <i class="bi bi-dash-circle-fill text-danger"></i>
+                            </td>
+                        </tr> -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Modal Crear-->
+    <div class="modal fade" id="crearUsuario" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Crear Usuario</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form id="formAddUsuario">
+
+                    <div class="modal-body">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" name="nombre" id="nombre">
+                            <label for="nombre">Nombre</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="number" class="form-control" name="identificacion" id="identificacion">
+                            <label for="identificacion">Identificacion</label>
+                        </div>
+    
+                        <div class="form-floating mb-3">
+                            <input type="number" class="form-control" name="telefono" id="telefono">
+                            <label for="telefono">Telefono</label>
+                        </div>
+    
+                        <div class="form-floating mb-3">
+                            <select class="form-select" id="cargo" name="cargo" aria-label="Floating label select example">
+                                <option value="" selected>Por favor seleccione..</option>
+                                <option value="1">Administrador</option>
+                                <option value="2">Cocina</option>
+                                <option value="3">Caja</option>
+                                <option value="4">Entrega</option>
+                            </select>
+                            <label for="cargo">Cargo</label>
+                        </div>
+    
+                        <div class="form-floating mb-3">
+                            <input type="password" class="form-control" name="clave" id="clave">
+                            <label for="clave">Clave</label>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-warning">Continuar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!--  -->
+
+    <!-- Modal Editar-->
+    <div class="modal fade" id="editarUsuario" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Editar Usuario</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form id="formEditUsuario">
+
+                    <div class="modal-body">
+                        <input type="hidden" class="form-control" id="idusuario">
+    
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" name="nombreEdit" id="nombreEdit">
+                            <label for="nombreEdit">Nombre</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="number" class="form-control" name="identificacionEdit" id="identificacionEdit">
+                            <label for="identificacionEdit">Identificacion</label>
+                        </div>
+    
+                        <div class="form-floating mb-3">
+                            <input type="number" class="form-control" name="telefonoEdit" id="telefonoEdit">
+                            <label for="telefonoEdit">Telefono</label>
+                        </div>
+    
+                        <div class="form-floating mb-3">
+                            <select class="form-select" name="cargoEdit" id="cargoEdit" aria-label="Floating label select example">
+                                <option value="" selected>Por favor seleccione..</option>
+                                <option value="1">Administrador</option>
+                                <option value="2">Cocina</option>
+                                <option value="3">Caja</option>
+                                <option value="4">Entrega</option>
+                            </select>
+                            <label for="cargoEdit">Cargo</label>
+                        </div>
+    
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" name="claveEdit" id="claveEdit">
+                            <label for="claveEdit">Clave</label>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-warning">Continuar</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+    <!--  -->
+
+    <script type="text/javascript" src="/lib/node_modules/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="/lib/node_modules/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script type="text/javascript" src="/lib/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="/lib/node_modules/@pablotheblink/flashyjs/flashy.js"></script>
+    <script type="text/javascript" src="/lib/node_modules/izitoast/dist/js/iziToast.min.js"></script>
+    
+
+    <script type="text/javascript" src="/views/usuario/js/usuario.js"></script>
+
+    </html>

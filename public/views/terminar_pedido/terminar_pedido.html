@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menú</title>
+    <link rel="icon" type="image/x-icon" href="../../assets/img/logon-min-infinito-negro.png" sizes="16x16"/>
+    <link rel="stylesheet" href="../../lib/bootstrap-5.3.2-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../lib/bootstrap-icons/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="../../css/index.css">
+</head>
+<body>
+    <div class="content">
+        <header>
+            <div class="cont-log">
+                <img src="../../assets/img/logo.png" class="logo" alt="">
+            </div>
+        </header>
+
+        <main class="d-flex justify-content-center">
+            <div class="card d-flex" style="width: 90%;">
+                <ul class="list-group list-group-flush">
+                    <!--  -->
+                    <li class="list-group-item">
+                        <div class="d-flex justify-content-between">
+                            <h6 class="card-title">Papas a la francesa</h6>
+                            <select class="form-select" aria-label="Default select example" style="width: 40%;">
+                                <option selected>Tipo Consumo</option>
+                                <option value="1">Consumir en mesa</option>
+                                <option value="2">Para llevar</option>
+                            </select>
+                        </div>
+                        <div class="d-flex justify-content-between pt-2">
+                            <label class="form-check-label d-flex justify-content-end">$ 20.000</label>
+                            <div class="input-group" style="width: 130px;">
+                                <button class="btn btn-outline-secondary" type="button" id="btn-minus">−</button>
+                                <input type="text" class="form-control text-center" id="quantity" value="1" readonly>
+                                <button class="btn btn-outline-secondary" type="button" id="btn-plus">+</button>
+                            </div>
+                        </div>
+                    </li>
+                    <!--  -->
+                    <li class="list-group-item">
+                        <div class="d-flex justify-content-between">
+                            <h6 class="card-title">Carne asada</h6>
+                            <select class="form-select" aria-label="Default select example" style="width: 40%;">
+                                <option selected>Tipo Consumo</option>
+                                <option value="1">Consumir en mesa</option>
+                                <option value="2">Para llevar</option>
+                            </select>
+                        </div>
+                        <div class="d-flex justify-content-between pt-2">
+                            <label class="form-check-label d-flex justify-content-end">$ 20.000</label>
+                            <div class="input-group" style="width: 130px;">
+                                <button class="btn btn-outline-secondary" type="button" id="btn-minus">−</button>
+                                <input type="text" class="form-control text-center" id="quantity" value="1" readonly>
+                                <button class="btn btn-outline-secondary" type="button" id="btn-plus">+</button>
+                            </div>
+                        </div>
+                    </li>
+                    <!--  -->
+                    <li class="list-group-item">
+                        <div class="d-flex justify-content-between">
+                            <h6 class="card-title">Bandeja Paisa</h6>
+                            <select class="form-select" aria-label="Default select example" style="width: 40%;">
+                                <option selected>Tipo Consumo</option>
+                                <option value="1">Consumir en mesa</option>
+                                <option value="2">Para llevar</option>
+                            </select>
+                        </div>
+                        <div class="d-flex justify-content-between pt-2">
+                            <label class="form-check-label d-flex justify-content-end">$ 20.000</label>
+                            <div class="input-group" style="width: 130px;">
+                                <button class="btn btn-outline-secondary" type="button" id="btn-minus">−</button>
+                                <input type="text" class="form-control text-center" id="quantity" value="1" readonly>
+                                <button class="btn btn-outline-secondary" type="button" id="btn-plus">+</button>
+                            </div>
+                        </div>
+                    </li>
+                    <!--  -->
+                    <li class="list-group-item"></li>
+                </ul>
+            </div>
+            <!-- Botones flotantes -->
+             <a  href="../index.html"><button class="btn btn-warning position-fixed bottom-0 start-0 mb-4 ms-4">
+                <i class="bi bi-caret-left-square-fill"></i> Volver
+            </button></a>
+            <button class="btn btn-warning position-fixed bottom-0 end-0 m-4" data-bs-toggle="modal" data-bs-target="#addPedido">
+                <i class="bi bi-bag-check-fill"></i> Pedir
+            </button>
+            
+        </main>
+    </div>
+
+     <!-- Modal Crear-->
+    <div class="modal fade" id="addPedido" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Completar datos</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-floating mb-3">
+                        <input type="number" class="form-control" id="floatingInput" placeholder="name@example.com">
+                        <label for="floatingInput">Identificacion</label>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com">
+                        <label for="floatingInput">Nombre</label>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input type="number" class="form-control" id="floatingInput" placeholder="name@example.com">
+                        <label for="floatingInput">Telefono</label>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                    <a  href="/views/factura/factura.html"><button type="button" class="btn btn-warning">Continuar</button></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="../../lib/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="../../lib/bootstrap-5.3.2-dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

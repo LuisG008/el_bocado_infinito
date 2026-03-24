@@ -1,0 +1,48 @@
+.div-principal-pedidos{
+    height: 100vh;
+    width: 100vw;
+}
+
+.div-secundario-menu{
+    height: 90%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.acciones{
+    display: grid;
+    grid-template-columns: 1fr 1fr 2fr;
+    grid-template-areas: 
+    "numero-menu estado-menu accion-menu";
+    width: 100%;
+}
+
+.numero-menu {
+    grid-area: numero-menu;
+    display: flex;
+    align-items: center;
+}
+.estado-menu {
+    grid-area: estado-menu;
+    display: flex;
+    align-items: center;
+}
+.accion-menu {
+    grid-area: accion-menu;
+    display: flex;
+    align-items: center;
+}
+
+@media (max-width: 600px) {
+
+  .card{
+      width: 9rem;
+  }
+}
+@media (max-width: 400px) {
+
+  .card{
+      width: 11rem;
+  }
+}

@@ -1,0 +1,82 @@
+
+.content{
+    width: 100vw;
+    height: 100vh;
+}
+
+header{
+    width: 100%;
+    height: 10vh;
+    /* border: 1px solid #F97316; */
+    border-bottom: 3px solid #F97316;
+}
+
+main{
+    width: 100%;
+    height: 90vh;
+    
+    padding: 10px;
+
+}
+
+.list-menu{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.menu{
+    padding: 5px;
+}
+.img-menu{
+    width: 100%;
+    height: 15vh;
+}
+.card{
+    width: 10rem;
+    height: 100%;
+}
+.card-body-menu{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.title-card-body{
+    font-size: 12px;
+    font-weight: bold;
+}
+.descrip-card-body{
+    font-size: 11px;
+    color: gray;
+    line-height: 1.05;
+}
+.logo{
+    width: auto;
+    height: 10vh;
+}
+
+
+
+/* Botón flotante */
+  .btn-flotante {
+    position: fixed;       /* Mantiene el botón en el mismo lugar aunque haya scroll */
+    bottom: 30px;          /* Distancia desde el borde inferior */
+    right: 40px;          /* Distancia desde el borde derecho */
+    font-size: 15px;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    z-index: 9999;         /* Asegura que quede encima de otros elementos */
+  }
+
+  .btn-flotante-volver {
+    position: fixed;       /* Mantiene el botón en el mismo lugar aunque haya scroll */
+    bottom: 30px;          /* Distancia desde el borde inferior */
+    left: 40px;          /* Distancia desde el borde derecho */
+    font-size: 15px;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(97, 35, 35, 0.3);
+    background-color: rgba(rgb(187, 168, 83), green, blue, alpha);
+    z-index: 9999;         /* Asegura que quede encima de otros elementos */
+  }
+
+
+/* fin boton flotante */

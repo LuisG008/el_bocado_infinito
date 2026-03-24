@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="icon" type="image/x-icon" href="../../assets/img/logon-min-infinito-negro.png" sizes="16x16"/>
+    <link rel="stylesheet" href="../../lib/bootstrap-5.3.2-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../lib/bootstrap-5.3.2-dist/css/sidebars.css">
+    <link rel="stylesheet" href="../../lib/bootstrap-icons/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="../../css/ui.css">
+    <link rel="stylesheet" href="../../css/index.css">
+    <link rel="stylesheet" href="../../css/dashboard.css">
+</head>
+<body>
+
+  <!-- <div class="hamburguesa">
+    <button class="btn btn-dark d-md-none" 
+            type="button" 
+            data-bs-toggle="offcanvas" 
+            data-bs-target="#sidebar">
+      <i class="bi bi-list fs-3"></i>
+    </button>
+  </div> -->
+
+  <!-- Sidebar | Menu lateral -->
+  <!-- <div class="offcanvas offcanvas-start   flex-colum d-md-flex p-3 color-institucional"  id="sidebar" tabindex="-1" > -->
+  <div class="p-3 color-institucional"  id="sidebar" tabindex="-1" >
+    <a href="#" class="d-flex align-items-center justify-content-center mb-md-0 ">
+      <img width="60" src="../../assets/img/logo-min.png">
+    </a>
+    <hr>
+    <ul class="nav nav-pills flex-column mb-auto">
+      <li class="nav-item">
+        <a href="#" class="nav-link active" data-id="pedido" aria-current="page">
+            <i class="bi bi-card-list me-2" width="16" height="16"></i>
+            <span class="text-ocultar">Pedidos Admin</span>
+        </a>
+      </li>
+      <li  class="nav-item">
+        <a href="#" class="nav-link text-black" data-id="menu">
+            <i class="bi bi-ui-checks-grid me-2" width="16" height="16"></i>
+          <span class="text-ocultar">Menus</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="#" class="nav-link text-black" data-id="usuario">
+            <i class="bi bi-person-fill-gear me-2" width="16" height="16"></i>
+            <span class="text-ocultar">Usuarios</span> 
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="#" class="nav-link text-black" data-id="cliente">
+            <i class="bi bi-people-fill me-2" width="16" height="16"></i>
+            <span class="text-ocultar">Clientes</span>
+        </a>
+      </li>
+      <li>
+        <a href="#" class="nav-link text-black" data-id="cocina">
+            <i class="bi bi-fork-knife me-2" width="16" height="16"></i>
+            <span class="text-ocultar">Cocina</span>
+        </a>
+      </li>
+      <li>
+        <a href="#" class="nav-link text-black" data-id="entrega">
+            <i class="bi bi-check2-circle me-2" width="16" height="16"></i>
+            <span class="text-ocultar">Entregas</span>
+        </a>
+      </li>
+      <li>
+        <a href="#" class="nav-link text-black" data-id="caja">
+            <i class="bi bi-cash-coin me-2" width="16" height="16"></i>
+            <span class="text-ocultar">Caja</span>
+        </a>
+      </li>
+    </ul>
+    <hr>
+    <div class="dropdown">
+      <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+        <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
+        <strong class="text-ocultar">Carlos Andres</strong>
+      </a>
+      <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
+        <li><hr class="dropdown-divider"></li>
+        <li><a class="dropdown-item" href="../login/login.html">Cerrar Sessión</a></li>
+      </ul>
+    </div>
+  </div>
+  <!-- Fin Sidebar | Fin Menu lateral -->
+
+  <!-- pantallas | En el iframe cargara las pantallas a desarrollar por defecto pedidos -->
+      <iframe id="pantalla" src="/views/pedidos/pedidos.html" frameborder="0"></iframe>
+  <!-- fin pantallas -->
+  
+  <script type="text/javascript" src="../../lib/jquery/jquery.min.js"></script>
+  <script type="text/javascript" src="../../lib/bootstrap-5.3.2-dist/js/bootstrap.bundle.min.js"></script>
+  <script type="text/javascript" src="../../lib/bootstrap-5.3.2-dist/js/sidebars.js"></script>
+  <script type="text/javascript" src="../js/event.js"></script>
+  
+
+</body>
+</html>

@@ -1,0 +1,21 @@
+.div-principal-pedidos{
+    height: 100vh;
+    width: 100vw;
+}
+
+.div-secundario-pedidos{
+    height: 90%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.tabla{
+    height: 80%;
+    width: 90%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    flex-wrap: nowrap;
+    -webkit-overflow-scrolling: touch;
+}

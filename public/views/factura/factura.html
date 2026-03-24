@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Factura</title>
+    <link rel="icon" type="image/x-icon" href="../../assets/img/logon-min-infinito-negro.png" sizes="16x16" />
+    <link rel="stylesheet" href="../../lib/bootstrap-5.3.2-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../lib/bootstrap-icons/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="../../css/index.css">
+    <link rel="stylesheet" href="../../css/factura.css">
+</head>
+
+<body>
+    <div class="content">
+        <header>
+            <div class="cont-log">
+                <img src="../../assets/img/logo.png" class="logo" alt="">
+            </div>
+        </header>
+        <main>
+            <div class="div-principal-factura">
+                <div class="div-secundario-factura">
+                    <div class="logo-factura">
+                        <img src="../../assets/img/logo.png" class="logo-fac">
+                    </div>
+                    <div class="info-basic-pedido">
+                        Pedido No. 5 <br>
+                        Fecha: 2025-12-01 01:23 <br>
+                        Telefono: 3001234567 <br>
+                        direccion: Calle 123 #45-67 <br>
+                    </div>
+                    <div class="info-items-pedido">
+                        <table class="w-100">
+                            <tr>
+                                <td>Cant</td>
+                                <td>Descripción</td>
+                                <td>Precio</td>
+                                <td>Total</td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>Papas a la francesa</td>
+                                <td>8.000</td>
+                                <td>8.000</td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>Carne asada</td>
+                                <td>20.000</td>
+                                <td>20.000</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>Bandeja Paisa</td>
+                                <td>30.000</td>
+                                <td>30.000</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="total-pedido">
+                        <span class="d-flex justify-content-end">Total:</span>
+                        <span class="d-flex justify-content-end">$88.000</span>
+                    </div>
+                    <div class="frase">
+                        Por favor dirigirse a la caja para realizar el pago <br>
+                        Gracias por su visita.
+                    </div>
+                </div>
+            </div>
+            <!-- Botones flotantes -->
+             <a  href="../estado_pedido/estado_pedido.html"><button class="btn btn-warning position-fixed bottom-0 start-0 mb-4 ms-4">
+                <i class="bi bi-clock-history"></i> Ver Estado
+            </button></a>
+            <button class="btn btn-warning position-fixed bottom-0 end-0 m-4">
+                <i class="bi bi-download"></i> Descargar
+            </button>
+
+        </main>
+
+    </div>
+
+</body>
+
+</html>
