@@ -286,6 +286,14 @@ $(function () {
 
 
     //Buscador
+    $('#buscador').on('input', function () {
+        let texto = $(this).val().trim();
+        if (texto == '') {
+            cargarUsuarios();
+        }
+        
+    });
+
     let xhrBusqueda = null;
     let timer;
     $('#buscador').on('keyup', function () {
@@ -295,11 +303,6 @@ $(function () {
 
         timer = setTimeout(function () {
         
-            if (texto == '') {
-                cargarUsuarios();
-                return;
-            }
-
             // evitar buscar si está vacío
             if (texto.length < 3) {
                 return;

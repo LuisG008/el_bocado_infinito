@@ -10,4 +10,5 @@
     <li>APP_DATABASE_DB=bocado_infinito</li>
     <li>APP_DATABASE_PORT=3306</li>
 </ul>
+<p>Ubicarse en public/lib y ejecutar <strong>npm install</strong> para la instalacion de las librerias</p>
 <hr>
