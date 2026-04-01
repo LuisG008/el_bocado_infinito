@@ -1,6 +1,5 @@
 $(function () {
 
-
     $('#formLogin').validate({
         errorClass: "text-danger",
         errorElement: "small",
@@ -30,7 +29,6 @@ $(function () {
 
         submitHandler: function (form) {
             validarLogin();
-            //form.submit();
         }
 
     });
@@ -45,7 +43,6 @@ $(function () {
                 password: $('#password').val()
             },
             beforeSend: function () {
-                //$('.tabla, .spinner-border').toggleClass('d-none');
             },
         }).fail((jqXHR) => {
             console.log(jqXHR);
@@ -58,7 +55,6 @@ $(function () {
         }).done(response => {
             window.location.href = '/views/dashboard/dashboard.html';
         }).always(() => {
-            //$('.tabla, .spinner-border').toggleClass('d-none');
         });
     }
 

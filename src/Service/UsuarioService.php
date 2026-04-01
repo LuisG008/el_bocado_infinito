@@ -133,33 +133,4 @@ class UsuarioService
 
         return $usuario;
     }
-
-    /**
-     * Valida el acceso
-     *
-     * @param string $identificacion
-     * @param string $clave
-     * @return Usuario
-     * @author Luis Sanchez <betancurluis20@gmail.com> 2026-03-28
-     */
-    public function validLogin(string $identificacion, string $clave): Usuario
-    {
-        $Usuario = $this->em->getRepository(Usuario::class)->findOneBy([
-            'identificacion' => $identificacion
-        ]);
-
-        if (!$Usuario) {
-            throw new InvalidArgumentException("Usuario no encontrado", Response::HTTP_UNAUTHORIZED);
-        }
-        
-        if ($Usuario->getEstado() != self::ESTADO_ACTIVO) {
-            throw new InvalidArgumentException("Usuario Inactivo", Response::HTTP_UNAUTHORIZED);
-        }
-
-        if (!password_verify($clave, $Usuario->getClave())) {
-            throw new InvalidArgumentException("Contraseña incorrecta", Response::HTTP_UNAUTHORIZED);
-        }
-
-        return $Usuario;
-    }
 }
