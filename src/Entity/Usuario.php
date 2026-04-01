@@ -6,8 +6,11 @@ use App\Repository\UsuarioRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+
 #[ORM\Entity(repositoryClass: UsuarioRepository::class)]
-class Usuario
+class Usuario implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -93,4 +96,25 @@ class Usuario
 
         return $this;
     }
+
+    public function getUserIdentifier(): string
+    {
+        return $this->identificacion;
+    }
+
+    public function getRoles(): array
+    {
+        return ['ROLE_USER']; // luego lo conectamos con tu tabla rol
+    }
+
+    public function eraseCredentials(): void
+    {
+        // si no manejas datos sensibles temporales, déjalo vacío
+    }
+
+    public function getPassword(): string
+    {
+        return $this->clave;
+    }
+
 }

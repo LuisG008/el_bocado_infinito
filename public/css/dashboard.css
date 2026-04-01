@@ -29,6 +29,13 @@ body{
   width: 20vw !important; /* O el tamaño que usabas antes */
 }
 
+.logout{
+  width: 100%; 
+  display: flex;
+  justify-content: center;
+  background-color: #664D03;
+}
+
 /* .hamburguesa{
     z-index: 999;
 } */
