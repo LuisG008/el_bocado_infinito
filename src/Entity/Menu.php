@@ -26,6 +26,9 @@ class Menu
     #[ORM\Column(length: 255)]
     private ?string $ruta_imagen = null;
 
+    #[ORM\Column(length: 8)]
+    private ?string $estado = null;
+
     public function getId(): ?int
     {
         return $this->idmenu;
@@ -75,6 +78,18 @@ class Menu
     public function setRutaImagen(string $ruta_imagen): static
     {
         $this->ruta_imagen = $ruta_imagen;
+
+        return $this;
+    }
+    
+    public function getEstado(): ?string
+    {
+        return $this->estado;
+    }
+
+    public function setEstado(string $estado): static
+    {
+        $this->estado = $estado;
 
         return $this;
     }

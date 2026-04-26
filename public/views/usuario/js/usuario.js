@@ -115,9 +115,6 @@ $(function () {
         });
     }
     //Fin CREAR
-    
-
-    
 
     //EDITAR
     $('#editarUsuario').on('show.bs.modal', function (event) {

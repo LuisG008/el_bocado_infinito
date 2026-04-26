@@ -2,14 +2,15 @@
 
 namespace App\Controller;
 
-use App\Entity\Usuario;
-use App\Entity\Rol;
+use App\Entity\Menu;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\HttpFoundation\Request;
 use InvalidArgumentException;
+
+use App\Service\MenuService;
 
 #[Route('/api/menu')]
 final class MenuController extends AbstractController
@@ -22,20 +23,17 @@ final class MenuController extends AbstractController
     }
 
     /**
-     * Retorna todos los usuarios 
+     * Retorna todos los menús
      *
      * @return Response
-     * @author Luis Sanchez <luis.sanchez@cerok.com> 2026-03-14
+     * @author Luis Sanchez <betancurluis20@gmail.com> 2026-03-14
      */
     #[Route('', name: 'get_menu', methods: ['GET'])]
-    public function menu(): Response
+    public function menu(MenuService $menuService): Response
     {
         try {
-            $Connection = $this->em->getConnection();
-
-            $sql = "SELECT * FROM menu where estado_rol = 'Activo' order by idusuario desc";
-
-            $data = $Connection->executeQuery($sql)->fetchAllAssociative();
+            $data = $menuService->allMenus();
+            
             
             return $this->json(['data' => $data]);
 
@@ -45,46 +43,36 @@ final class MenuController extends AbstractController
     }
 
 
+    /**
+     * Crea un nuevo menú
+     *
+     * @param Request $request
+     * @param MenuService $menuService
+     * @return Response
+     * @author Luis Sanchez <betancurluis20@gmail.com> 2026-04-26
+     */
     #[Route('/create', name: 'create_menu', methods: ['POST'])]
-    public function create(Request $request): Response
-    {
+    public function create(
+        Request $request,
+        MenuService $menuService
+    ): Response {
         $Connection = $this->em->getConnection();
         $Connection->beginTransaction();
 
         try {
             $data = $request->request->all();
-
-            if($data['nombres'] == '' || $data['identificacion'] == '' || $data['telefono'] == '' || $data['clave'] == '' || $data['idcargo'] == ''){
+            // Capturar el archivo
+            $imagenFile = $request->files->get('imagen');
+           
+            if($data['nombre'] == '' || $data['descripcion'] == '' ||  $data['precio'] == '' || $data['estado'] == ''){
                 throw new InvalidArgumentException("Todos los campos son obligatorios", Response::HTTP_BAD_REQUEST);
             }
 
-            $usuario = new Usuario();
-            $rol = new Rol();
-
-            $usuario->setIdentificacion($data['identificacion']);
-            $usuario->setNombres($data['nombres']);
-            $usuario->setTelefono($data['telefono']);
-            $usuario->setClave(password_hash($data['clave'], PASSWORD_BCRYPT));
-            $usuario->setEstado($data['estado']);
-            
-            // usar este en el login
-            // if (!password_verify($data['clave'], $usuario->getClave())) {
-            //     throw new BadRequestHttpException("Clave incorrecta");
-            // }
-
-            $this->em->persist($usuario);
-            $this->em->flush();
-            
-            $rol->setFkUsuario($usuario->getId());
-            $rol->setFkCargo($data['idcargo']);
-            $rol->setEstado($data['estado']);
-
-            $this->em->persist($rol);
-            $this->em->flush();
+            $menuService->create($data, $imagenFile);
 
             $Connection->commit();
             return $this->json([
-                'message' => 'Usuario creado'
+                'message' => 'Menu creado'
             ]);
 
         } catch (\Throwable $th) {
@@ -98,75 +86,43 @@ final class MenuController extends AbstractController
     }
 
     /**
-     * Edita un usuario y su rol asociado
+     * Edita un menú
+     *
+     * @param Request $request
+     * @param int $id
+     * @param MenuService $menuService
+     * @return Response
+     * @author Luis Sanchez <betancurluis20@gmail.com> 2026-04-26
      */
-    #[Route('/edit/{id}', name: 'edit_menu', methods: ['PUT'])]
-    public function edit(Request $request, int $id): Response
-    {
+    #[Route('/edit/{id}', name: 'edit_menu', methods: ['POST'])]
+    public function edit(
+        Request $request, 
+        int $id,
+        MenuService $menuService
+    ): Response {
         $Connection = $this->em->getConnection();
         $Connection->beginTransaction();
 
         try {
             $data = $request->request->all();
 
-            if($data['nombres'] == '' || $data['identificacion'] == '' || $data['telefono'] == '' || $data['clave'] == '' || $data['idcargo'] == ''){
+            // Capturar el archivo
+            $imagenFile = $request->files->get('imagen');
+            
+            if($data['nombre'] == '' || $data['descripcion'] == '' ||  $data['precio'] == '' || $data['estado'] == ''){
                 throw new InvalidArgumentException("Todos los campos son obligatorios", Response::HTTP_BAD_REQUEST);
             }
-  
-            $usuario = $this->em->getRepository(Usuario::class)->find($id);
-            if (!$usuario) {
-                return $this->json(
-                    ['error' => 'Usuario no encontrado'],
-                    Response::HTTP_NOT_FOUND
-                );
-            }
-            
-            $usuario->setIdentificacion($data['identificacion']);
-            $usuario->setNombres($data['nombres']);
-            $usuario->setTelefono($data['telefono']);
-            $usuario->setClave($data['clave']);
 
-            $sql = "
-                SELECT idrol,idcargo
-                FROM vrol
-                WHERE idusuario = :id
-                AND estado_rol = 'Activo'
-            ";
-
-            $vrol = $Connection->executeQuery($sql, [
-                'id' => $id,
-                'idcargo' => $data['idcargo']
-            ])->fetchAssociative();
-
-            $crear = true;
-            if ($vrol) {
-                if( $vrol['idcargo'] != $data['idcargo']){
-                    $rolAnterior = $this->em->getRepository(Rol::class)->find($vrol['idrol']);
-                    $rolAnterior->setEstado('Inactivo');
-                }else{
-                    $crear = false;
-                }
-            }
-
-            if($crear){
-                $nuevoRol = new Rol();
-                $nuevoRol->setFkUsuario($id);
-                $nuevoRol->setFkCargo($data['idcargo']);
-                $nuevoRol->setEstado('Activo');
-                $this->em->persist($nuevoRol);
-            }
-
-            $this->em->flush();
+            $menuService->edit($id, $data, $imagenFile);
 
             $Connection->commit();
-
             return $this->json([
-                'message' => 'Usuario editado'
+                'message' => 'Menu editado'
             ]);
 
         } catch (\Throwable $th) {
             $Connection->rollBack();
-
+            dd($th);
             return $this->json([
                 'message' => $th->getMessage()
                 ], $th->getCode() ?: Response::HTTP_INTERNAL_SERVER_ERROR
@@ -175,79 +131,23 @@ final class MenuController extends AbstractController
     }
 
     /**
-     * Activa o inactiva un usuario
+     * Busca un menu por su nombre o numero
      *
      * @param Request $request
      * @return Response
-     * @author Luis Sanchez <luis.sanchez@cerok.com> 2026-03-14
-     */
-    #[Route('/{id}', name: 'activar_inactivar_menu', methods: ['PUT'])]
-    public function activarInactivar(Request $request, int $id): Response
-    {
-        $Connection = $this->em->getConnection();
-        $Connection->beginTransaction();
-
-        try {
-            $data = $request->request->all();
-
-            if(!$id){
-                throw new InvalidArgumentException("El ID del usuario es obligatorio", Response::HTTP_BAD_REQUEST);
-            }
-
-            $usuario = $this->em->getRepository(Usuario::class)->find($id);
-            if (!$usuario) {
-                throw new InvalidArgumentException("Usuario no encontrado", Response::HTTP_BAD_REQUEST);
-            }
-            
-            $estado = $data['accion'] == 'inactivar' ? 'Inactivo' : 'Activo';
-            $usuario->setEstado($estado);
-            $this->em->flush();
-            
-            $Connection->commit();
-            return $this->json([
-                'message' => 'Usuario ' . $estado
-            ]);
-
-        } catch (\Throwable $th) {
-            $Connection->rollBack();
-            
-            return $this->json([
-                'message' => $th->getMessage()
-                ], $th->getCode() ?: Response::HTTP_INTERNAL_SERVER_ERROR
-            );
-        }
-    }
-
-    /**
-     * Busca un usuario por su nombre o identificación
-     *
-     * @param Request $request
-     * @return Response
-     * @author Luis Sanchez <luis.sanchez@cerok.com> 2026-03-17
+     * @author Luis Sanchez <betancurluis20@gmail.com> 2026-03-17
      */
     #[Route('/buscar', name: 'buscador_menu', methods: ['GET'])]
     public function buscar(Request $request): Response
     {
         $Connection = $this->em->getConnection();
-        //$Connection->beginTransaction();
 
         try {
             $texto = $request->query->get('texto', '');
 
             trim($texto);
 
-            $sql = "
-                SELECT * 
-                FROM vrol
-                WHERE estado_rol = 'Activo'
-                AND (nombres like :texto OR identificacion like :texto)
-                order by idusuario desc
-            ";
-
-            $data = $Connection->executeQuery($sql, [
-                'texto' => "%{$texto}%"
-            ])->fetchAllAssociative();
-
+            $data = $this->em->getRepository(Menu::class)->findByMenuText($texto);
             
             $data = $data ?: [];
             

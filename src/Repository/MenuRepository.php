@@ -16,20 +16,21 @@ class MenuRepository extends ServiceEntityRepository
         parent::__construct($registry, Menu::class);
     }
 
-    //    /**
-    //     * @return Menu[] Returns an array of Menu objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('m')
-    //            ->andWhere('m.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('m.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
+    /**
+     * Retorna un array de menús que coincidan con el texto de búsqueda en su nombre, descripción o id
+     * @param string $value El texto a buscar
+    * @return Menu[] Returns an array of Menu objects
+    */
+    public function findByMenuText($value): array
+    {
+        return $this->createQueryBuilder('m')
+            ->andWhere('m.nombre LIKE :val OR m.descripcion LIKE :val OR m.idmenu LIKE :val')
+            ->setParameter('val', "%{$value}%")
+            ->orderBy('m.idmenu', 'ASC')
+            //->setMaxResults(10)
+            ->getQuery()
+            ->getResult();
+    }
 
     //    public function findOneBySomeField($value): ?Menu
     //    {

@@ -4,8 +4,14 @@
 }
 
 .div-secundario-menu{
-    height: 90%;
+    height: 90vh;
     width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: start;
+}
+.loading{
+    height: 90vh;
     display: flex;
     justify-content: center;
     align-items: center;
