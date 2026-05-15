@@ -20,77 +20,13 @@
         </header>
 
         <main>
+            <div class="loading">
+                <div class="spinner-border text-warning d-none" role="status" style="width: 3.5rem; height: 3.5rem;">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
+
             <div class="list-menu">
-                <div class="menu">
-                    <div class="card" >
-                        <img src="/assets/img/papas.jpg" class="card-img-top img-menu"
-                            alt="Lo sentimos, no se pudo cargar la imagen">
-                        <div class="card-body card-body-menu">
-                            <p class="card-text">
-                                <span class="title-card-body">Papas a la francesa</span><br>
-                                <p class="descrip-card-body">300g de papas a la francesa as as as adsa asdasd asdas asd as asd </p>
-                            </p>
-                            <div class="form-check ">
-                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault0">
-                                <label class="form-check-label d-flex justify-content-end" for="flexCheckDefault0">$ 20.000</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="menu">
-                    <div class="card">
-                        <img src="/assets/img/carne.jpg" class="card-img-top img-menu"
-                            alt="Lo sentimos, no se pudo cargar la imagen">
-                        <div class="card-body card-body-menu">
-                            <p class="card-text">
-                                <span class="title-card-body">carne asada</span><br>
-                                <p class="descrip-card-body">300g de carne asada</p>
-                            </p>
-                            <div class="form-check ">
-                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault1">
-                                <label class="form-check-label d-flex justify-content-end" for="flexCheckDefault1">$ 20.000</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="menu">
-                    <div class="card">
-                        <img src="/assets/img/bandeja.jpg" class="card-img-top img-menu"
-                            alt="Lo sentimos, no se pudo cargar la imagen">
-                        <div class="card-body card-body-menu">
-                            <p class="card-text">
-                                <span class="title-card-body">Bandeja Paisa</span><br>
-                                <p class="descrip-card-body">Arroz, frijol, 100g de carge, chorizo, aguacate, tajada, Huevo, a... <span style="color: blue">ver mas</span>
-                                </p>
-                            </p>
-                            <div class="form-check ">
-                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault2">
-                                <label class="form-check-label d-flex justify-content-end" for="flexCheckDefault2">$ 20.000</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="menu">
-                    <div class="card">
-                        <img src="/assets/img/cazuela.jpeg" class="card-img-top img-menu"
-                            alt="Lo sentimos, no se pudo cargar la imagen">
-                        <div class="card-body card-body-menu">
-                            <p class="card-text">
-                                <span class="title-card-body">Cazuela de marisco</span><br>
-                                <p class="descrip-card-body">filete de pescado, camarón, almeja en concha, calamar pota... <span style="color: blue">ver mas</span>
-                                </p>
-                            </p>
-                            <div class="form-check ">
-                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault3">
-                                <label class="form-check-label d-flex justify-content-end" for="flexCheckDefault3">$ 20.000</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
 
             </div>
             
@@ -98,7 +34,7 @@
             <a  href="/views/estado_pedido/estado_pedido.html"><button class="btn btn-warning position-fixed bottom-0 start-0 mb-4 ms-4">
                 <i class="bi bi-clock-history"></i> Pedidos
             </button></a>
-            <a  href="/views/terminar_pedido/terminar_pedido.html"><button class="btn btn-warning position-fixed bottom-0 end-0 m-4" data-bs-toggle="modal" data-bs-target="#crearMenu">
+            <button class="btn btn-warning position-fixed bottom-0 end-0 m-4" id="generarPedido">
                 <i class="bi bi-cart-check-fill"></i> Generar Pedido
             </button></a>
 
@@ -108,4 +44,8 @@
 
 </body>
 
+<script type="text/javascript" src="/lib/node_modules/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript" src="/lib/node_modules/@pablotheblink/flashyjs/flashy.js"></script>
+
+<script type="text/javascript" src="/views/index.js"></script>
 </html>

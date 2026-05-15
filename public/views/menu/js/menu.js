@@ -4,7 +4,7 @@ $(function () {
     })();
 
     /**
-     * Consulta los usuarios
+     * Consulta todos los menus
      */
     function cargarMenu() {
         $.ajax({

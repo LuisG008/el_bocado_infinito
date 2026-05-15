@@ -54,7 +54,11 @@ main{
     height: 10vh;
 }
 
-
+.loading{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
 /* Botón flotante */
   .btn-flotante {

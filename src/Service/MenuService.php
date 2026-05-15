@@ -98,4 +98,11 @@ class MenuService
 
         return $Menu;
     }
+
+    public function prePedidos(array $idsPedidos): array
+    {
+        $pedidos = $this->em->getRepository(Menu::class)->findByIds($idsPedidos);
+
+        return $pedidos;
+    }
 }

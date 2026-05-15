@@ -9,6 +9,9 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: MenuRepository::class)]
 class Menu
 {
+    const ESTADO_DISPONIBLE = 'Activo';
+    const ESTADO_NO_DISPONIBLE = 'Inactivo';
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]

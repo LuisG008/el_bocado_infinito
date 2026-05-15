@@ -17,8 +17,9 @@ class MenuRepository extends ServiceEntityRepository
     }
 
     /**
-     * Retorna un array de menús que coincidan con el texto de búsqueda en su nombre, descripción o id
-     * @param string $value El texto a buscar
+    * Retorna un array de menús que coincidan con el texto de búsqueda en su nombre, descripción o id
+    *
+    * @param string $value El texto a buscar
     * @return Menu[] Returns an array of Menu objects
     */
     public function findByMenuText($value): array
@@ -26,6 +27,38 @@ class MenuRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('m')
             ->andWhere('m.nombre LIKE :val OR m.descripcion LIKE :val OR m.idmenu LIKE :val')
             ->setParameter('val', "%{$value}%")
+            ->orderBy('m.idmenu', 'ASC')
+            //->setMaxResults(10)
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+    * Retorna un array de menús disponibles
+    *
+    * @return Menu[] Returns an array of Menu objects
+    */
+    public function findByAllAvailable(): array
+    {
+        return $this->createQueryBuilder('m')
+            ->andWhere('m.estado = :estado')
+            ->setParameter('estado', Menu::ESTADO_DISPONIBLE)
+            ->orderBy('m.idmenu', 'ASC')
+            //->setMaxResults(10)
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+    * Retorna un array de menús por sus IDs
+    *
+    * @return Menu[] Returns an array of Menu objects
+    */
+    public function findByIds(array $ids): array
+    {
+        return $this->createQueryBuilder('m')
+            ->andWhere('m.idmenu IN (:ids)')
+            ->setParameter('ids', $ids)
             ->orderBy('m.idmenu', 'ASC')
             //->setMaxResults(10)
             ->getQuery()
