@@ -25,6 +25,9 @@ class HistorialEstado
     #[ORM\Column]
     private ?\DateTime $fecha_hora = null;
 
+    #[ORM\Column(length: 8)]
+    private ?string $estado = null;
+
     public function getId(): ?int
     {
         return $this->idhistorial_estado;
@@ -74,6 +77,18 @@ class HistorialEstado
     public function setFechaHora(\DateTime $fecha_hora): static
     {
         $this->fecha_hora = $fecha_hora;
+
+        return $this;
+    }
+
+    public function getEstado(): ?string
+    {
+        return $this->estado;
+    }
+
+    public function setEstado(string $estado): static
+    {
+        $this->estado = $estado;
 
         return $this;
     }

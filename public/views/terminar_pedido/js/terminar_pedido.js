@@ -19,7 +19,6 @@ $(function () {
             flashy.error(jqXHR.responseJSON.message);
         }).done(response => {
             cargarPrepedido(response.data);
-            console.log(response.data);
         }).always(() => {
             $('.list-menu, .spinner-border').toggleClass('d-none');
         });
@@ -179,14 +178,10 @@ $(function () {
         }
     });
 
-    //Quede aqui falta recopilar todo para enviar en un ajax
     function terminarPedido() {
-        console.log('terminar pedido');
-
+        
         pedido = getPedido();
-
-        console.log($('#identificacion').val());
-
+        $(".btn-warning").prop("disabled", true);
         $.ajax({
             type: 'POST',
             url: `/api/public/finalizarPedido`,
@@ -198,22 +193,30 @@ $(function () {
                 pedido: pedido,
             },
             beforeSend: function () {
-                $('.tabla, .spinner-border').toggleClass('d-none');
+                $('.tabla, .spinner-border, .btn-danger, .btn-warning').toggleClass('d-none');
             },
         }).fail((jqXHR) => {
-            flashy.error(jqXHR.responseJSON.message);
+            if(jqXHR.responseJSON.message){
+                flashy.error(jqXHR.responseJSON.message);
+            } else {
+                flashy.error('Ocurrio un error en la carga');
+            }
         }).done(response => {
-            cargarUsuarios();
-            flashy('¡Usuario editado!', {
+            
+            flashy('¡Pedido #' + response.data.idpedido + ' Creado!', {
                 type: 'success',
                 animation: 'bounce',
                 icon: ' '
             });
+            setTimeout(() => {
+                $(".btn-warning").prop("disabled", false);
+                window.location.href = '/views/factura/factura.html';
+            }, 3000);
 
             // cerrar modal
-            $('#editarUsuario').modal('hide');
+            $('#terminarPedido').modal('hide');
         }).always(() => {
-            $('.tabla, .spinner-border').toggleClass('d-none');
+            $('.tabla, .spinner-border, .btn-danger, .btn-warning').toggleClass('d-none');
         });
     }
 

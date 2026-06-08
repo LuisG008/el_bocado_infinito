@@ -5,11 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Estado</title>
-    <link rel="icon" type="image/x-icon" href="../../assets/img/logon-min-infinito-negro.png" sizes="16x16" />
-    <link rel="stylesheet" href="../../lib/bootstrap-5.3.2-dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../../lib/bootstrap-icons/font/bootstrap-icons.min.css">
-    <link rel="stylesheet" href="../../css/index.css">
-    <link rel="stylesheet" href="../../css/estado_pedido.css">
+    <link rel="icon" type="image/x-icon" href="/assets/img/logon-min-infinito-negro.png" sizes="16x16" />
+    <link rel="stylesheet" href="/lib/node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/lib/node_modules/bootstrap-icons/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="/lib/node_modules/izitoast/dist/css/iziToast.min.css">
+
+    <link rel="stylesheet" href="/css/index.css">
+    <link rel="stylesheet" href="/css/estado_pedido.css">
 
 </head>
 
@@ -17,17 +19,22 @@
     <div class="content">
         <header>
             <div class="cont-log">
-                <img src="../../assets/img/logo.png" class="logo" alt="">
+                <img src="/assets/img/logo.png" class="logo" alt="">
             </div>
         </header>
         <main>
+            <div class="loading">
+                <div class="spinner-border text-warning d-none" role="status" style="width: 3.5rem; height: 3.5rem;">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
             <div class="div-principal-estado">
-                <div class="estado-pedido" data-bs-toggle="modal" data-bs-target="#showInfo">
+                <!-- <div class="estado-pedido" data-bs-toggle="modal" data-bs-target="#showInfo">
                     <div class="d-flex justify-content-between">
                         <span>Pedido No 5</span>
                         <i class="bi bi-x-circle"></i>
                     </div>
-                    <span class="mt-3">Papas a la francesa <br> Carne asada..</span>
+                    <span class="mt-3">Papas a la francesa <br> Carne asada.. </span>
                     <div class="d-flex justify-content-between">
                         <span>2025-12-01 01:30</span>
                         <div>
@@ -37,22 +44,30 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
+
             </div>
         </main>
 
-        <a href="../index.html"><button class="btn btn-warning position-fixed bottom-0 start-50 translate-middle-x mb-4">
-                <i class="bi bi-house-door-fill"></i> Inicio
-            </button></a>
+        <div class="position-fixed bottom-0 start-50 translate-middle-x mb-4 d-flex gap-2">
+            <a href="../index.html">
+                <button class="btn btn-warning">
+                    <i class="bi bi-house-door-fill"></i> Inicio
+                </button>
+            </a>
+            <button class="btn btn-warning" id="btn-refresh" title="Refrescar">
+                <i class="bi bi-arrow-repeat"></i>
+            </button>
+        </div>
 
-        <!-- Modal-->
+        <!-- Modal info pedido-->
         <div class="modal fade" id="showInfo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Pedido No 5</h5>
+                        <h5 class="modal-title" id="titulo">Pedido No 5</h5>
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-body" id="list-items">
                         Papas a la francesa <br>
                         300g de papas a la francesa as as as adsa asdasd asdas asd as asd
                         <hr>
@@ -69,8 +84,142 @@
             </div>
         </div>
 
-        <script type="text/javascript" src="../../lib/jquery/jquery.min.js"></script>
-        <script type="text/javascript" src="../../lib/bootstrap-5.3.2-dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Modal trazabilidad estado-->
+        <div class="modal fade" id="showTrazabilidad" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <!-- <div class="modal-header">
+                        <h5 class="modal-title" id="titulo">Trazabilidad del Pedido</h5>
+                    </div> -->
+                    <div class="modal-body" id="list-items">
+                        
+                        
+                        <div class="tracking">
+
+                            <!--<div class="tracking-item completed">
+                                <div class="tracking-icon">
+                                    <i class="bi bi-check-circle-fill"></i>
+                                </div>
+
+                                <div class="tracking-content">
+                                    <h6>Creado</h6>
+                                    <small>20 Mayo 2026 - 10:00 AM</small>
+                                </div>
+                            </div>
+
+                            <div class="tracking-item completed">
+                                <div class="tracking-icon">
+                                    <i class="bi bi-wallet2"></i>
+                                </div>
+
+                                <div class="tracking-content">
+                                    <h6>Pendiente de pago</h6>
+                                    <small>20 Mayo 2026 - 10:10 AM</small>
+                                </div>
+                            </div>
+
+                            <div class="tracking-item completed">
+                                <div class="tracking-icon">
+                                    <i class="bi bi-x-circle-fill"></i>
+                                </div>
+
+                                <div class="tracking-content">
+                                    <h6>Cancelado</h6>
+                                    <small>20 Mayo 2026 - 10:10 AM</small>
+                                </div>
+                            </div>
+
+                            <div class="tracking-item active">
+                                <div class="tracking-icon">
+                                    <i class="bi bi-cash-coin"></i>
+                                </div>
+
+                                <div class="tracking-content">
+                                    <h6>Pagado</h6>
+                                    <small>20 Mayo 2026 - 10:20 AM</small>
+                                </div>
+                            </div>
+
+                            <div class="tracking-item">
+                                <div class="tracking-icon">
+                                    <i class="bi bi-fork-knife"></i>
+                                </div>
+
+                                <div class="tracking-content">
+                                    <h6>En preparación</h6>
+                                    <small>Pendiente</small>
+                                </div>
+                            </div>
+
+                            <div class="tracking-item">
+                                <div class="tracking-icon">
+                                    <i class="bi bi-bag-fill"></i>
+                                </div>
+
+                                <div class="tracking-content">
+                                    <h6>Listo para entrega</h6>
+                                    <small>Pendiente</small>
+                                </div>
+                            </div>
+
+                            <div class="tracking-item">
+                                <div class="tracking-icon">
+                                    <i class="bi bi-bag-check-fill"></i>
+                                </div>
+
+                                <div class="tracking-content">
+                                    <h6>Entregado</h6>
+                                    
+                                </div>
+                            </div>-->
+
+                        </div>
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Aceptar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+            <!-- Modal Pedir identificacion-->
+        <div class="modal fade" id="modal-identificador" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                <!-- <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div> -->
+                    <form id="identificador">
+                            <div class="modal-body">
+                                <div class="form-floating mb-3">
+                                    <input type="number" class="form-control" id="identificacion" name="identificacion">
+                                    <label for="identificacion">Identificacion</label>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <div class="loading">
+                                    <div class="spinner-border text-warning d-none" role="status" style="width: 3.5rem; height: 3.5rem;">
+                                        <span class="visually-hidden">Loading...</span>
+                                    </div>
+                                </div>
+                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                                <button type="submit" class="btn btn-warning">Continuar</button>
+                            </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <script type="text/javascript" src="/lib/node_modules/jquery/dist/jquery.min.js"></script>
+        <script type="text/javascript" src="/lib/node_modules/jquery-validation/dist/jquery.validate.min.js"></script>
+        <script type="text/javascript" src="/lib/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+        <script type="text/javascript" src="/lib/node_modules/@pablotheblink/flashyjs/flashy.js"></script>
+        <script type="text/javascript" src="/lib/node_modules/izitoast/dist/js/iziToast.min.js"></script>
+
+        <script type="text/javascript" src="/views/estado_pedido/js/estado_pedido.js"></script>
 </body>
 
 </html>

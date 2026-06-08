@@ -8,6 +8,13 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: EstadoRepository::class)]
 class Estado
 {
+    const ESTADO_PENDIENTE_PAGO = 1;
+    const ESTADO_CANCELADO = 2;
+    const ESTADO_PAGADO = 3;
+    const ESTADO_EN_PREPARACION = 4;
+    const ESTADO_LISTO_PARA_ENTREGAR = 5;
+    const ESTADO_ENTREGADO = 6;
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -15,6 +22,9 @@ class Estado
 
     #[ORM\Column(length: 255)]
     private ?string $nombre = null;
+
+    #[ORM\Column(length: 100)]
+    private ?string $color = null;
 
     #[ORM\Column(length: 8)]
     private ?string $estado_nombre = null;
@@ -32,6 +42,18 @@ class Estado
     public function setNombre(string $nombre): static
     {
         $this->nombre = $nombre;
+
+        return $this;
+    }
+
+    public function getColor(): ?string
+    {
+        return $this->color;
+    }
+
+    public function setColor(string $color): static
+    {
+        $this->color = $color;
 
         return $this;
     }

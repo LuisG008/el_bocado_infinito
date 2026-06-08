@@ -12,6 +12,9 @@ class Menu
     const ESTADO_DISPONIBLE = 'Activo';
     const ESTADO_NO_DISPONIBLE = 'Inactivo';
 
+    const TIPO_CONSUMO_MESA = 'Consumir en mesa';
+    const TIPO_CONSUMO_LLEVAR = 'Para llevar';
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]

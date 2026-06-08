@@ -3,19 +3,89 @@
     width: 100%;
     height: 80vh;
     display: flex;
-    justify-content: center;
+    align-items: center;
     border-radius: 5px;
+    flex-direction: column;
     /* border: 1px solid black;
     padding: 10px; */
+    overflow: auto;
 }
 
 .estado-pedido{
     width: 90%;
     height: 105px;
     border-radius: 5px;
-    border: 1px solid #F97316;
+    border: 1px solid #f9b116;
 }
 
 .estado-pedido{
     padding: 5px;
 }
+
+
+
+/* trazabilidad */
+
+.tracking {
+    position: relative;
+    margin: 30px;
+}
+
+.tracking-item {
+    position: relative;
+    padding-left: 50px;
+    padding-bottom: 40px;
+}
+
+.tracking-item:last-child {
+    padding-bottom: 0;
+}
+
+.tracking-item::before {
+    content: '';
+    position: absolute;
+    left: 14px;
+    top: 0;
+    width: 4px;
+    height: 100%;
+    background: #d6d6d6;
+}
+
+.tracking-item.completed::before {
+    background: #f9b116;
+}
+
+.tracking-icon {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #d6d6d6;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tracking-item.completed .tracking-icon {
+    background: #f9b116;
+}
+
+.tracking-item.active .tracking-icon {
+    background: #f9b116;
+    box-shadow: 0 0 0 6px rgba(255, 202, 44, 0.5);
+}
+
+.tracking-content h6 {
+    margin: 0;
+    font-weight: 600;
+}
+
+.tracking-content small {
+    color: #777;
+}
+
+/* fin trazabilidad */
+

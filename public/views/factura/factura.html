@@ -6,10 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Factura</title>
     <link rel="icon" type="image/x-icon" href="../../assets/img/logon-min-infinito-negro.png" sizes="16x16" />
-    <link rel="stylesheet" href="../../lib/bootstrap-5.3.2-dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../../lib/bootstrap-icons/font/bootstrap-icons.min.css">
-    <link rel="stylesheet" href="../../css/index.css">
-    <link rel="stylesheet" href="../../css/factura.css">
+    <link rel="stylesheet" href="/lib/node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/lib/node_modules/bootstrap-icons/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="/css/index.css">
+    <link rel="stylesheet" href="/css/factura.css">
 </head>
 
 <body>
@@ -21,9 +21,14 @@
         </header>
         <main>
             <div class="div-principal-factura">
-                <div class="div-secundario-factura">
+                <div class="loading">
+                    <div class="spinner-border text-warning d-none" role="status" style="width: 3.5rem; height: 3.5rem;">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+                <!-- <div class="div-secundario-factura">
                     <div class="logo-factura">
-                        <img src="../../assets/img/logo.png" class="logo-fac">
+                        <img src="/assets/img/logo.png" class="logo-fac">
                     </div>
                     <div class="info-basic-pedido">
                         Pedido No. 5 <br>
@@ -67,12 +72,12 @@
                         Por favor dirigirse a la caja para realizar el pago <br>
                         Gracias por su visita.
                     </div>
-                </div>
+                </div> -->
             </div>
             <!-- Botones flotantes -->
-             <a  href="../estado_pedido/estado_pedido.html"><button class="btn btn-warning position-fixed bottom-0 start-0 mb-4 ms-4">
+            <button class="btn btn-warning position-fixed bottom-0 start-0 mb-4 ms-4" id="estados_pedidos">
                 <i class="bi bi-clock-history"></i> Ver Estado
-            </button></a>
+            </button>
             <button class="btn btn-warning position-fixed bottom-0 end-0 m-4">
                 <i class="bi bi-download"></i> Descargar
             </button>
@@ -83,4 +88,8 @@
 
 </body>
 
+    <script type="text/javascript" src="/lib/node_modules/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="/lib/node_modules/@pablotheblink/flashyjs/flashy.js"></script>
+
+    <script type="text/javascript" src="/views/factura/js/factura.js"></script>
 </html>

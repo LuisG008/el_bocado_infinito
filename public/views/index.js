@@ -68,11 +68,10 @@ $(function () {
 
     //Generar pedido --------------------------------------------------------------------------------------------------------------------------------------------------------
     $(document).on('click', '#generarPedido', function () {
-        //Que aqui
         let pedidos = [];
 
         $('.form-check-input:checked').each(function () {
-            pedidos.push($(this).val()); // aquí obtienes el value (id del menú)
+            pedidos.push($(this).val()); // aquí obtiene el value (id del menú)
         });
 
         console.log(pedidos);
@@ -95,7 +94,7 @@ $(function () {
         }).fail((jqXHR) => {
             flashy.error(jqXHR.responseJSON.message);
         }).done(response => {
-            window.location.href = '/views/terminar_pedido/terminar_pedido.html';            
+            window.location.href = '/views/terminar_pedido/terminar_pedido.html';
         }).always(() => {
             $('.list-menu, .spinner-border').toggleClass('d-none');
         });
