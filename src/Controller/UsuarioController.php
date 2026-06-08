@@ -2,8 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\Usuario;
-use App\Entity\Rol;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -34,8 +32,6 @@ final class UsuarioController extends AbstractController
     public function usuario(VRolService $vRolService): Response
     {
         try {
-            // $user = $this->getUser();
-            // dd($user);
             $data = $vRolService->allUsers();
 
             return $this->json(['data' => $data]);
