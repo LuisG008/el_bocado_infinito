@@ -31,7 +31,7 @@ class UsuarioService
      */
     public function create(array $data): Usuario
     {
-        $usuarioExistente = $this->em->getRepository(Usuario::class)->findByFilters([
+        $usuarioExistente = $this->em->getRepository(Usuario::class)->findOneBy([
             'identificacion' => $data['identificacion']
         ]);
         

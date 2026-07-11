@@ -329,7 +329,9 @@ $(function () {
             }
         }).done(response => {
             Pedidos = response.data;
+            HistorialEstados = response.historial;
             cargarEstadosPedidos(Pedidos);
+
             $(".btn-warning").prop("disabled", false);
             // cerrar modal
             $('#modal-identificador').modal('hide');
