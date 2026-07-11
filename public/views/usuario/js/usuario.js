@@ -233,13 +233,13 @@ $(function () {
             message: '¿Esta seguro de ' + accion + ' el usuario?',
             position: 'center',
             buttons: [
-                ['<button><b>YES</b></button>', function (instance, toast) {
+                ['<button><b>Sí</b></button>', function (instance, toast) {
                     activarInactivarUsuario(idusuario, accion);
 
                     instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
         
                 }, true],
-                ['<button>NO</button>', function (instance, toast) {
+                ['<button>No</button>', function (instance, toast) {
         
                     instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
         

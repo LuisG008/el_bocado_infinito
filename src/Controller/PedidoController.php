@@ -125,6 +125,40 @@ final class PedidoController extends AbstractController
     }
 
     /**
+     * Retorna todos los pedidos para preparar en cocina
+     *
+     * @return Response
+     * @author Luis Sanchez <betancurluis20@gmail.com> 2026-06-08
+     */
+    #[Route('/cocina', name: 'get_pedido_cocina', methods: ['GET'])]
+    public function cocina(VPedidoService $VPedidoService): Response
+    {
+        try {
+            $data = $VPedidoService->allPedidosCocina();
+
+            $listEstado = [];
+            $Estados = $this->em->getRepository(Estado::class)->findBy([
+                'estado_nombre' => 'Activo'
+            ]);
+            foreach ($Estados as $estado) {
+                $listEstado[$estado->getNombre()] = [
+                    'color' => $estado->getColor()
+                ];
+            }
+
+            return $this->json([
+                'data' => $data,
+                'estados' => $listEstado
+            ]);
+        } catch (\Throwable $th) {
+            return $this->json([
+                'message' => $th->getMessage()
+                ], $th->getCode() ?: Response::HTTP_INTERNAL_SERVER_ERROR
+            );
+        }
+    }
+
+    /**
      * Actualiza el estado de un pedido
      *
      * @param Request $request
