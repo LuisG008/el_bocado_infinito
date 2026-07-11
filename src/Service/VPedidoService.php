@@ -214,6 +214,66 @@ class VPedidoService
     }
 
     /**
+     * Retorna todos los pedidos generados del dia pendientes de cobro en caja
+     *
+     * @return array
+     * @author Luis Sanchez <betancurluis20@gmail.com> 2026-07-11
+     */
+    public function allPedidosCaja(): array
+    {
+        $qb =  $this->em->getConnection()->createQueryBuilder();
+
+        $qb->select('*')
+            ->from('vpedido', 'v')
+            ->where("fecha_hora_pedido BETWEEN CONCAT(CURDATE(), ' 00:00:00') AND CONCAT(CURDATE(), ' 23:59:59')")
+            ->andWhere("estado IN ('" . Pedido::PENDIENTE_PAGO . "')")
+            ->orderBy('idpedido', 'DESC');
+        $pedidos = $qb->executeQuery()->fetchAllAssociative();
+        
+        $pedidosAgrupados = [];
+
+        foreach ($pedidos as $row) {
+
+            $idPedido = $row['idpedido'];
+
+            // Si el pedido no existe todavía, se crea
+            if (!isset($pedidosAgrupados[$idPedido])) {
+
+                $pedidosAgrupados[$idPedido] = [
+                    'idpedido'          => $row['idpedido'],
+                    'identificacion'    => $row['identificacion'],
+                    'idcliente'         => $row['idcliente'],
+                    'cliente'           => $row['cliente'],
+                    'telefono_cliente'  => $row['telefono_cliente'],
+                    'fecha_hora_pedido' => $row['fecha_hora_pedido'],
+                    'estado'            => $row['estado'],
+                    'color_estado'      => $row['color_estado'],
+                    'total'             => 0,
+                    'items'             => []
+                ];
+            }
+
+            // Sumar al total del pedido
+            $pedidosAgrupados[$idPedido]['total'] += $row['precio'] * $row['cantidad'];
+
+            // Agregar item al pedido
+            $pedidosAgrupados[$idPedido]['items'][] = [
+                'iditem_pedido' => $row['iditem_pedido'],
+                'nombre_item_pedido' => $row['nombre_item_pedido'],
+                'descripcion_pedido' => $row['descripcion_pedido'],
+                'tipo_consumo' => $row['tipo_consumo'],
+                'precio' => $row['precio'],
+                'cantidad' => $row['cantidad']
+            ];
+        }
+
+        // índices numéricos
+        $pedidosAgrupados = array_values($pedidosAgrupados);
+
+        return $pedidosAgrupados;
+    }
+
+    /**
      * Actualiza el estado del pedido
      *
      * @param int $idPedido

@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <head>
     <!-- Libreria boostrap -->
-    <link rel="stylesheet" href="../../lib/bootstrap-5.3.2-dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../../lib/bootstrap-icons/font/bootstrap-icons.min.css">
-    <link rel="stylesheet" href="../../css/ui.css">
-    <link rel="stylesheet" href="../../css/pedidos.css">
+    <link rel="stylesheet" href="/lib/node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/lib/node_modules/bootstrap-icons/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="/lib/node_modules/izitoast/dist/css/iziToast.min.css">
+
+    <link rel="stylesheet" href="/css/ui.css">
+    <link rel="stylesheet" href="/css/pedidos.css">
 </head>
 <div>
     <div class="div-principal-pedidos">
@@ -20,81 +22,53 @@
         </nav>
         <!-- Fin navbar -->
         <div class="div-secundario-pedidos">
+            <div class="spinner-border text-warning d-none" role="status" style="width: 3.5rem; height: 3.5rem;">
+                <span class="visually-hidden">Loading...</span>
+            </div>
             <div class="tabla">
                 <table class="table table-hover" style="background-color: #FFF3CD;">
                     <thead>
                         <tr>
                             <th scope="col"># Pedido</th>
                             <th scope="col">Cliente</th>
-                            <th scope="col">Menú</th>
-                            <th scope="col">Descripción</th>
-                            <th scope="col">Cantidad</th>
-                            <th scope="col">Total</th>
+                            <th scope="col">Identificación</th>
+                            <th scope="col">Items</th> 
+                            <th scope="col">Total</th> 
                             <th scope="col">Estado</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <th>1</th>
-                            <td>Mark</td>
-                            <td>Papas a la francesa</td>
-                            <td>300g de papas a la francesa as as as adsa asdasd asdas asd as asd</td>
-                            <td>2</td>
-                            <td>40.000</td>
-                            <td>
-                                <div class="input-group mb-3">
-                                    <button class="btn btn-outline-secondary dropdown-toggle badge bg-success"
-                                        type="button" data-bs-toggle="dropdown" aria-expanded="false">Pagado</button>
-                                    <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" href="#">Pendiente de pago</a></li>
-                                        <li><a class="dropdown-item" href="#">Pagado</a></li>
-                                    </ul>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>2</th>
-                            <td>Jacob</td>
-                            <td>Carne asada</td>
-                            <td>300g de carne asada</td>
-                            <td>1</td>
-                            <td>20.000</td>
-                            <td>
-                                <div class="input-group mb-3">
-                                    <button class="btn btn-outline-secondary dropdown-toggle badge bg-danger"
-                                        type="button" data-bs-toggle="dropdown" aria-expanded="false">Pendiente de pago</button>
-                                    <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" href="#">Pendiente de pago</a></li>
-                                        <li><a class="dropdown-item" href="#">Pagado</a></li>
-                                    </ul>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>3</th>
-                            <td>Carne asada</td>
-                            <td>Andres</td>
-                            <td>300g de carne asada</td>
-                            <td>1</td>
-                            <td>20.000</td>
-                            <td>
-                                <div class="input-group mb-3">
-                                    <button class="btn btn-outline-secondary dropdown-toggle badge bg-danger"
-                                        type="button" data-bs-toggle="dropdown" aria-expanded="false">Pendiente de pago</button>
-                                    <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" href="#">Pendiente de pago</a></li>
-                                        <li><a class="dropdown-item" href="#">Pagado</a></li>
-                                    </ul>
-                                </div>
-                            </td>
-                        </tr>
+                    <tbody id="tabla-pedidos">
+                       
                     </tbody>
                 </table>
             </div>
         </div>
 
-        <script type="text/javascript" src="../../lib/jquery/jquery.min.js"></script>
-        <script type="text/javascript" src="../../lib/bootstrap-5.3.2-dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Ver mas -->
+     <div class="modal fade" id="modalVerMas" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+         <div class="modal-dialog modal-dialog-scrollable">
+         
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title titulo-menu" id="modalVerMas"></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p class="descripcion-menu"></p>
+            </div>
+            </div>
+
+         </div>
+     </div>
+     <!--  -->
+
+    <script type="text/javascript" src="/lib/node_modules/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="/lib/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="/lib/node_modules/@pablotheblink/flashyjs/flashy.js"></script>
+    <script type="text/javascript" src="/lib/node_modules/izitoast/dist/js/iziToast.min.js"></script>
+
+    <script type="text/javascript" src="/views/js/global.js"></script>
+    <script type="text/javascript" src="/views/caja/js/caja.js"></script>
     </div>
 </div>
 </html>

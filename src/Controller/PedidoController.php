@@ -57,7 +57,7 @@ final class PedidoController extends AbstractController
     }
 
     /**
-     * Retorna todos los pedidos 
+     * Retorna todos los pedidos para entregar
      *
      * @return Response
      * @author Luis Sanchez <betancurluis20@gmail.com> 2026-06-08
@@ -67,6 +67,40 @@ final class PedidoController extends AbstractController
     {
         try {
             $data = $VPedidoService->allPedidosEntrega();
+
+            $listEstado = [];
+            $Estados = $this->em->getRepository(Estado::class)->findBy([
+                'estado_nombre' => 'Activo'
+            ]);
+            foreach ($Estados as $estado) {
+                $listEstado[$estado->getNombre()] = [
+                    'color' => $estado->getColor()
+                ];
+            }
+
+            return $this->json([
+                'data' => $data,
+                'estados' => $listEstado
+            ]);
+        } catch (\Throwable $th) {
+            return $this->json([
+                'message' => $th->getMessage()
+                ], $th->getCode() ?: Response::HTTP_INTERNAL_SERVER_ERROR
+            );
+        }
+    }
+
+    /**
+     * Retorna todos los pedidos para cobrar en caja
+     *
+     * @return Response
+     * @author Luis Sanchez <betancurluis20@gmail.com> 2026-06-08
+     */
+    #[Route('/caja', name: 'get_pedido_caja', methods: ['GET'])]
+    public function caja(VPedidoService $VPedidoService): Response
+    {
+        try {
+            $data = $VPedidoService->allPedidosCaja();
 
             $listEstado = [];
             $Estados = $this->em->getRepository(Estado::class)->findBy([
