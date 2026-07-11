@@ -8,6 +8,14 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: PedidoRepository::class)]
 class Pedido
 {
+
+    const PENDIENTE_PAGO = 'Pendiente de Pago';
+    const CANCELADO = 'Cancelado';
+    const PAGADO = 'Pagado';
+    const EN_PREPARACION = 'En Preparación';
+    const LISTO_PARA_ENTREGA = 'Listo para entrega';
+    const ENTREGADO = 'Entregado';
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]

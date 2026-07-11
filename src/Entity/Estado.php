@@ -12,7 +12,7 @@ class Estado
     const ESTADO_CANCELADO = 2;
     const ESTADO_PAGADO = 3;
     const ESTADO_EN_PREPARACION = 4;
-    const ESTADO_LISTO_PARA_ENTREGAR = 5;
+    const ESTADO_LISTO_PARA_ENTREGA = 5;
     const ESTADO_ENTREGADO = 6;
 
     #[ORM\Id]

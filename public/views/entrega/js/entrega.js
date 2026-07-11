@@ -6,13 +6,13 @@ $(function () {
         cargarPedidos();
     })();
 
-     /**
-     * Consulta los pedidos
+    /**
+     * Consulta los pedidos que se deben entregar
      */
     function cargarPedidos() {
         $.ajax({
             type: 'GET',
-            url: `/api/pedido`,
+            url: `/api/pedido/entrega`,
             dataType: 'json',
             data: {},
             beforeSend: function () {
@@ -32,6 +32,7 @@ $(function () {
             $('.tabla, .spinner-border').toggleClass('d-none');
         });
     }
+    
     /**
      * Llena la tabla con todos los pedidos del dia
      */
@@ -39,9 +40,10 @@ $(function () {
 
         let tabla = $('#tabla-pedidos');
         tabla.empty();
+        
         if(data.length > 0){
             data.forEach(pedido => {
-            
+
                 let row = `
                     <tr>
                         <th>${pedido.idpedido}</th>
@@ -54,11 +56,6 @@ $(function () {
                                 <button class="border-0 btn btn-outline-secondary dropdown-toggle badge ${pedido.color_estado}" type="button"
                                     data-bs-toggle="dropdown" aria-expanded="false">${pedido.estado}</button>
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item cambiar-estado" href="#">Pendiente de pago</a></li>
-                                    <li><a class="dropdown-item cambiar-estado" href="#">Cancelado</a></li>
-                                    <li><a class="dropdown-item cambiar-estado" href="#">Pagado</a></li>
-                                    <li><a class="dropdown-item cambiar-estado" href="#">En preparación</a></li>
-                                    <li><a class="dropdown-item cambiar-estado" href="#">Listo para entrega</a></li>
                                     <li><a class="dropdown-item cambiar-estado" href="#">Entregado</a></li>
                                 </ul>
                             </div>
@@ -76,7 +73,7 @@ $(function () {
             tabla.append(row);
         }
     }
-
+    
     /**
      * Formatea el precio en miles
      */
@@ -136,8 +133,6 @@ $(function () {
     }
 
     function cambiarEstadoPedido(idPedido, nuevoEstado, grupo) {
-        
-
         $.ajax({
             type: 'POST',
             url: `/api/pedido/updateEstado`,
@@ -166,7 +161,6 @@ $(function () {
         }).always(() => {
             $('.tabla, .spinner-border').toggleClass('d-none');
         });
-        
         
     }
 
