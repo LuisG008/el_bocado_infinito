@@ -3,6 +3,10 @@ $(function () {
         pedidoGenerado();
     })();
 
+    // $('#descargar_factura').on('click', function () {
+    //     window.open($('#descargar_factura').attr('href'), '_blank');
+    // });
+
     /**
      * Consulta el pedido generado y muestra la factura en html
      */
@@ -22,8 +26,8 @@ $(function () {
                 flashy.error('Ocurrio un error en la carga');
             }
         }).done(response => {
+            $('#descargar_factura').attr('href', '/' + response.data.ruta_factura);
             cargarFactura(response.data);
-            
         }).always(() => {
             $('.spinner-border').toggleClass('d-none');
         });

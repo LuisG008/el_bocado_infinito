@@ -12,6 +12,7 @@ use App\Entity\Estado;
 use DateTime;
 use InvalidArgumentException;
 use Symfony\Component\HttpFoundation\Response;
+use Mpdf\Mpdf;
 
 class PedidoService
 {
@@ -23,7 +24,7 @@ class PedidoService
     }
 
     /**
-     * Generar un nuevo pedido
+     * Finaliza el pedido, crea el cliente, el pedido y los items del pedido
      *
      * @param array $data
      * @return array
@@ -93,7 +94,127 @@ class PedidoService
         $this->em->persist($pedido);
         $this->em->flush();
 
+        $facturaPdf = $this->generateFacturaPdf($resp);
+
+        $pedido->setRutaFactura($facturaPdf);
+        $this->em->flush();
+
+        $resp['ruta_factura'] = $facturaPdf;
+
         return $resp;
+    }
+
+    /**
+     * Genera el PDF de la factura del pedido
+     *
+     * @return string
+     * @author Luis Sanchez <betancurluis20@gmail.com> 2026-07-13
+     */
+    private function generateFacturaPdf(array $data): string
+    {
+        $mpdf = new Mpdf([
+            'format' => 'A4',
+            'orientation' => 'P', // P = Vertical, L = Horizontal
+            'margin_left' => 10,
+            'margin_right' => 10,
+            'margin_top' => 15,
+            'margin_bottom' => 15
+        ]);
+        $mpdf->showImageErrors = true;
+
+        $html = $this->getHtmlFactura($data);
+
+
+        $css = file_get_contents($_SERVER['DOCUMENT_ROOT'] . '/css/factura.css');
+
+        $mpdf->WriteHTML($css, \Mpdf\HTMLParserMode::HEADER_CSS);
+        $mpdf->WriteHTML($html, \Mpdf\HTMLParserMode::HTML_BODY);
+
+        $local = 'almacenamiento/facturas/';
+        $rutaPdf = $local . 'factura_' . date('Y-m-d') . '_' . $data['idpedido'] . '.pdf';
+
+        $mpdf->Output($_SERVER['DOCUMENT_ROOT'] . '/' . $rutaPdf, 'F');
+    
+        return $rutaPdf;
+    }
+
+    /**
+     * Retorna el html de la factura
+     *
+     * @param array $data
+     * @return string
+     * @author Luis Sanchez <betancurluis20@gmail.com> 2026-07-13
+     */
+    private function getHtmlFactura(array $data): string
+    {
+        $items = '';
+        $total = 0;
+
+        foreach ($data['items'] as $item) {
+
+            $subtotal = $item['cantidad'] * $item['precio'];
+            $total += $subtotal;
+
+            $precio = number_format($item['precio'], 0, ',', '.');
+            $subtotalFormat = number_format($subtotal, 0, ',', '.');
+            $items .= <<<HTML
+                <tr>
+                    <td>{$item['cantidad']}</td>
+                    <td>{$item['nombre']}</td>
+                    <td>{$precio}</td>
+                    <td>{$subtotalFormat}</td>
+                </tr>
+            HTML;
+        }
+
+        $totalFormat = number_format($total, 0, ',', '.');
+        
+        $html = <<<HTML
+            <div class="div-principal-factura">
+                <div class='div-secundario-factura'>
+
+                    <div class='logo-factura' style="text-align:center;">
+                        <img src='/assets/img/logo.jpg' class='logo-fac'>
+                    </div>
+
+                    <div class='info-basic-pedido'  style="text-align:center; font-size:16px;">
+                        Pedido No. {$data['idpedido']}<br>
+                        Fecha: {$data['fecha']}<br>
+                        Teléfono: 3001234567<br>
+                        Dirección: Calle 123 #45-67<br>
+                    </div>
+
+                    <div class='info-items-pedido'>
+                        <table class='w-100'>
+                            <tr>
+                                <td>Cant</td>
+                                <td>Descripción</td>
+                                <td>Precio</td>
+                                <td>Total</td>
+                            </tr>
+
+                            {$items}
+
+                        </table>
+                    </div>
+
+                    <table width="100%" class='total-pedido'>
+                        <tr>
+                            <td><strong>Total:</strong></td>
+                            <td align="right">$ {$totalFormat}</td>
+                        </tr>
+                    </table>
+
+                    <div class='frase'>
+                        Por favor dirigirse a la caja para realizar el pago.<br>
+                        Gracias por su visita.
+                    </div>
+
+                </div>
+            </div>
+        HTML;
+
+        return $html;
     }
 
     /**
