@@ -32,6 +32,9 @@ $(function () {
             case 'cliente':
                 $('#pantalla').attr("src", "/views/cliente/cliente.html");
                 break;
+            case 'estadistica':
+                $('#pantalla').attr("src", "/views/estadistica/estadistica.html");
+                break;
         }
     });
 });

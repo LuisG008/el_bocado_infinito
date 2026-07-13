@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+
+<head>
+    <!-- Libreria boostrap -->
+    <link rel="stylesheet" href="/lib/node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/lib/node_modules/bootstrap-icons/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="/lib/node_modules/izitoast/dist/css/iziToast.min.css">
+    
+    <link rel="stylesheet" href="/css/ui.css">
+    <link rel="stylesheet" href="/css/estadistica.css">
+</head>
+
+<div class="div-principal-pedidos">
+    <!-- navbar -->
+    <nav class="navbar navbar-light color-institucional">
+        <div class="container-fluid">
+            <a class=""></a>
+        </div>
+    </nav>
+    
+
+    <div class="container-fluid dashboard py-4">
+
+    <!-- KPIs -->
+    <div class="row g-3">
+
+        <div class="col-12 col-sm-6 grafica-col">
+            <div class="card dashboard-card h-100">
+                <div class="card-body">
+                    <h5>Cantidad productos vendido</h5>
+                    <div class="d-flex justify-content-center align-items-center spinner-chart d-none" style="height: 100%">                        
+                        <div class="spinner-border text-warning" role="status" style="width: 3.5rem; height: 3.5rem;">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </div>
+                    <div id="chart">
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-sm-6 grafica-col">
+            <div class="card dashboard-card h-100">
+                <div class="card-body">
+                    <h5>Número de pedidos por semana.</h5>
+                    <div class="d-flex justify-content-center align-items-center spinner-chart3 d-none" style="height: 100%">                        
+                        <div class="spinner-border text-warning" role="status" style="width: 3.5rem; height: 3.5rem;">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </div>
+                    <div id="chart2"></div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Gráfico principal -->
+
+    <div class="card dashboard-card mt-4">
+
+        <div class="card-body">
+
+            <div class="d-flex flex-wrap justify-content-between align-items-center gap-3">
+
+                <div class="nav nav-pills">
+                    <!-- <button class="nav-link active">
+                        Ventas
+                    </button>
+                    <button class="nav-link">
+                        Visitas
+                    </button> -->
+                </div>
+
+                <div class="d-flex flex-wrap gap-2">
+
+                    <!-- <button class="btn btn-light">Hoy</button>
+                    <button class="btn btn-primary">Semana</button>
+                    <button class="btn btn-light">Mes</button>
+                    <button class="btn btn-light">Año</button> -->
+
+                </div>
+
+            </div>
+
+            <div class="row mt-4">
+
+                <div class="col-lg-8">
+
+                    <h5>Tendencia de ventas</h5>
+                    <div class="d-flex justify-content-center align-items-center spinner-chart3 d-none" style="height: 100%">                        
+                        <div class="spinner-border text-warning" role="status" style="width: 3.5rem; height: 3.5rem;">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </div>
+
+                    <div id="chart3"></div>
+
+                </div>
+
+                <div class="col-lg-4 mt-4 mt-lg-0">
+
+                    <h5>Top 5 más vendidos</h5>
+
+                    <ul class="list-group ranking" id="rankingProductos">
+
+
+                    </ul>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+    <script type="text/javascript" src="/lib/node_modules/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="/lib/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="/lib/node_modules/@pablotheblink/flashyjs/flashy.js"></script>
+    <script type="text/javascript" src="/lib/node_modules/izitoast/dist/js/iziToast.min.js"></script>
+    <script type="text/javascript" src="/lib/node_modules/apexcharts/dist/apexcharts.min.js"></script>
+
+    <script type="text/javascript" src="/views/js/global.js"></script>
+    <script type="text/javascript" src="/views/estadistica/js/estadistica.js"></script>
+</div>
+</html>

@@ -53,6 +53,7 @@ $(function () {
                 flashy.error(error.detail);
             }
         }).done(response => {
+            localStorage.setItem('user', JSON.stringify(response.user));
             window.location.href = '/views/dashboard/dashboard.html';
         }).always(() => {
         });

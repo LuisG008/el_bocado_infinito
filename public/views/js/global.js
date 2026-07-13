@@ -4,6 +4,7 @@ let redirigiendo = false;
 
 $(document).ajaxError(function (event, jqXHR) {
     if (jqXHR.status === 401 && !redirigiendo) {
+        localStorage.removeItem('user');
         redirigiendo = true;
         flashy.error(jqXHR.responseJSON.message);
         setTimeout(() => {

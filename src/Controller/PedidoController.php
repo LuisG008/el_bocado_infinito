@@ -198,4 +198,73 @@ final class PedidoController extends AbstractController
             );
         }
     }
+
+     /**
+     * Retorna los productos y su cantidad vendidos
+     *
+     * @return Response
+     * @author Luis Sanchez <betancurluis20@gmail.com> 2026-07-12
+     */
+    #[Route('/cantidadProductosVendidos', name: 'get_cantidad_productos_vendidos', methods: ['GET'])]
+    public function cantidadProductosVendidos(VPedidoService $VPedidoService): Response
+    {
+        try {
+            $data = $VPedidoService->cantidadProductosVendidos();
+
+            return $this->json([
+                'data' => $data
+            ]);
+        } catch (\Throwable $th) {
+            return $this->json([
+                'message' => $th->getMessage()
+                ], $th->getCode() ?: Response::HTTP_INTERNAL_SERVER_ERROR
+            );
+        }
+    }
+
+    /**
+     * Retorna los productos y su cantidad vendidos en la semana
+     *
+     * @return Response
+     * @author Luis Sanchez <betancurluis20@gmail.com> 2026-07-12
+     */
+    #[Route('/cantidadVentasSemana', name: 'get_cantidad_ventas_semana', methods: ['GET'])]
+    public function cantidadVentasSemana(VPedidoService $VPedidoService): Response
+    {
+        try {
+            $data = $VPedidoService->cantidadVentasSemana();
+
+            return $this->json([
+                'data' => $data
+            ]);
+        } catch (\Throwable $th) {
+            return $this->json([
+                'message' => $th->getMessage()
+                ], $th->getCode() ?: Response::HTTP_INTERNAL_SERVER_ERROR
+            );
+        }
+    }
+
+    /**
+     * Retorna los productos y su cantidad vendidos en la semana
+     *
+     * @return Response
+     * @author Luis Sanchez <betancurluis20@gmail.com> 2026-07-12
+     */
+    #[Route('/cantidadProductosVendidosSemana', name: 'get_cantidad_productos_vendidos_semana', methods: ['GET'])]
+    public function cantidadProductosVendidosSemana(VPedidoService $VPedidoService): Response
+    {
+        try {
+            $data = $VPedidoService->cantidadProductosVendidosSemana();
+
+            return $this->json([
+                'data' => $data
+            ]);
+        } catch (\Throwable $th) {
+            return $this->json([
+                'message' => $th->getMessage()
+                ], $th->getCode() ?: Response::HTTP_INTERNAL_SERVER_ERROR
+            );
+        }
+    }
 }

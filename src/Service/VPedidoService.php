@@ -375,4 +375,184 @@ class VPedidoService
         $this->em->persist($HistorialEstado);
         $this->em->flush();
     }
+
+    /**
+     * Retorna la cantidad total de cada producto vendido
+     *
+     * @return array
+     * @author Luis Sanchez <betancurluis20@gmail.com> 2026-07-12
+     */
+    public function cantidadProductosVendidos(): array
+    {
+        $qb =  $this->em->getConnection()->createQueryBuilder();
+
+        $qb->select('nombre_item_pedido, SUM(cantidad) AS cantidad_vendida')
+            ->from('vpedido', 'v')
+            // ->where("fecha_hora_pedido BETWEEN CONCAT(CURDATE(), ' 00:00:00') AND CONCAT(CURDATE(), ' 23:59:59')")
+            ->groupBy('nombre_item_pedido')
+            ->orderBy('cantidad_vendida', 'DESC');
+
+        $prodictos = $qb->executeQuery()->fetchAllAssociative();
+
+        $resultados = [];
+        foreach ($prodictos as $producto) {
+            $resultados['series'][] = (int)$producto['cantidad_vendida'];
+            $resultados['labels'][] = $producto['nombre_item_pedido'];
+        }
+
+        return $resultados;
+    }
+
+    /**
+     * Retorna la cantidad de productos vendidos por semana
+     *
+     * @return array
+     * @author Luis Sanchez <betancurluis20@gmail.com> 2026-07-12
+     */
+    public function cantidadVentasSemana(): array
+    {
+        $qb =  $this->em->getConnection()->createQueryBuilder();
+
+        $qb->select('DAYOFWEEK(fecha_hora_pedido) AS dia_semana, COUNT(DISTINCT idpedido) AS cantidad_ventas')
+            ->from('vpedido', 'v')
+            ->where("fecha_hora_pedido >= DATE_SUB(CURDATE(), INTERVAL 6 DAY)")
+            ->groupBy('DAYOFWEEK(fecha_hora_pedido)')
+            ->orderBy('DAYOFWEEK(fecha_hora_pedido)', 'ASC');
+
+        $ventas = $qb->executeQuery()->fetchAllAssociative();
+        
+        $resultados = [];
+        foreach ($ventas as $venta) {
+            $resultados['series'][] = (int)$venta['cantidad_ventas'];
+            $resultados['labels'][] = $this->getNombreDiaSemana($venta['dia_semana']);
+        }
+
+        return $resultados;
+    }
+
+    /**
+     * Retorna el dia de la semana en texto
+     *
+     * @param int $diaSemana
+     * @return string
+     * @author Luis Sanchez <betancurluis20@gmail.com> 2026-07-12
+     */
+    private function getNombreDiaSemana(int $diaSemana): string
+    {
+        $dias = [
+            1 => 'Domingo',
+            2 => 'Lunes',
+            3 => 'Martes',
+            4 => 'Miércoles',
+            5 => 'Jueves',
+            6 => 'Viernes',
+            7 => 'Sábado'
+        ];
+
+        return $dias[$diaSemana] ?? '';
+    }
+
+    /**
+     * Retorna la cantidad de productos vendidos cada dia de la semana
+     *
+     * @return array
+     * @author Luis Sanchez <betancurluis20@gmail.com> 2026-07-12
+     */
+    public function cantidadProductosVendidosSemana(): array
+    {
+        $qb =  $this->em->getConnection()->createQueryBuilder();
+
+        $qb->select('DAYOFWEEK(fecha_hora_pedido) AS dia, nombre_item_pedido, SUM(cantidad) AS cantidad')
+            ->from('vpedido', 'v')
+            ->where("fecha_hora_pedido >= DATE_SUB(CURDATE(), INTERVAL 6 DAY) 
+                AND nombre_item_pedido IN (
+                SELECT nombre_item_pedido
+                FROM (
+                    SELECT
+                        nombre_item_pedido
+                    FROM vpedido
+                    WHERE fecha_hora_pedido >= DATE_SUB(CURDATE(), INTERVAL 6 DAY)
+                    GROUP BY nombre_item_pedido
+                    ORDER BY SUM(cantidad) DESC
+                    LIMIT 5
+                ) t
+            )")
+            ->groupBy('DAYOFWEEK(fecha_hora_pedido),nombre_item_pedido')
+            ->orderBy('DAYOFWEEK(fecha_hora_pedido)', 'ASC')
+            ->addOrderBy('nombre_item_pedido', 'ASC');
+
+        $productos = $qb->executeQuery()->fetchAllAssociative();
+
+        // Orden que quieres mostrar
+        $dias = [
+            2 => 'Lunes',
+            3 => 'Martes',
+            4 => 'Miércoles',
+            5 => 'Jueves',
+            6 => 'Viernes',
+            7 => 'Sábado',
+            1 => 'Domingo'
+        ];
+
+        $resultado = [
+            'labels' => array_values($dias),
+            'series' => [],
+            'ranking' => []
+        ];
+
+        foreach ($productos as $producto) {
+
+            $nombre = $producto['nombre_item_pedido'];
+            $cantidad = (int)$producto['cantidad'];
+
+            if (!isset($resultado['series'][$nombre])) {
+
+                $resultado['series'][$nombre] = [
+                    'name' => $nombre,
+                    'data' => array_fill(0, 7, 0)
+                ];
+
+                // Inicializar total para el ranking
+                $resultado['ranking'][$nombre] = 0;
+            }
+
+            // Posición dentro del arreglo de días
+            $indice = match ((int)$producto['dia']) {
+                2 => 0,
+                3 => 1,
+                4 => 2,
+                5 => 3,
+                6 => 4,
+                7 => 5,
+                1 => 6,
+            };
+
+            $resultado['series'][$nombre]['data'][$indice] = $cantidad;
+
+            // Acumular el total vendido del producto
+            $resultado['ranking'][$nombre] += $cantidad;
+        }
+
+        // ApexCharts necesita un arreglo indexado
+        $resultado['series'] = array_values($resultado['series']);
+
+        // Convertir el ranking al formato que necesita el frontend
+        $ranking = [];
+
+        foreach ($resultado['ranking'] as $nombre => $cantidad) {
+            $ranking[] = [
+                'nombre' => $nombre,
+                'cantidad' => $cantidad
+            ];
+        }
+
+        // Ordenar por cantidad descendente
+        usort($ranking, function ($a, $b) {
+            return $b['cantidad'] <=> $a['cantidad'];
+        });
+
+        $resultado['ranking'] = $ranking;
+
+        return $resultado;
+    }
 }

@@ -1,4 +1,9 @@
 $(function () {
+
+    (function init() {
+        loadDataUser();
+    })();
+
      $('#cerrar_session').on('click', function (event) {
         $.ajax({
             type: 'GET',
@@ -23,5 +28,10 @@ $(function () {
         });
     });
 
+
+    function loadDataUser() {
+        $("#nombreUsuario").text(JSON.parse(localStorage.getItem('user')).nombre);
+        $(".nombre").attr("title", JSON.parse(localStorage.getItem('user')).nombre);
+    }
     
 });

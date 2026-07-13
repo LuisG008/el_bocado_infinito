@@ -65,8 +65,16 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
         /*if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
             return new RedirectResponse($targetPath);
         }*/
+
         $data = [
-            'message' => 'Login successful'
+            'message' => 'Login successful',
+            'user' => [
+                'id' => $token->getUser()->getId(),
+                'identificacion' => $token->getUser()->getIdentificacion(),
+                'nombre' => $token->getUser()->getNombres(),
+                'rol' => $token->getUser()->getRoles(),
+                'estado' => $token->getUser()->getEstado()
+            ]
         ];
 
         return new JsonResponse($data, $status = Response::HTTP_OK);

@@ -5,12 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
     <link rel="icon" type="image/x-icon" href="../../assets/img/logon-min-infinito-negro.png" sizes="16x16"/>
-    <link rel="stylesheet" href="../../lib/bootstrap-5.3.2-dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../../lib/bootstrap-5.3.2-dist/css/sidebars.css">
-    <link rel="stylesheet" href="../../lib/bootstrap-icons/font/bootstrap-icons.min.css">
-    <link rel="stylesheet" href="../../css/ui.css">
-    <link rel="stylesheet" href="../../css/index.css">
-    <link rel="stylesheet" href="../../css/dashboard.css">
+    <link rel="stylesheet" href="/lib/node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/lib/node_modules/bootstrap-icons/font/bootstrap-icons.min.css">
+
+    <link rel="stylesheet" href="/css/ui.css">
+    <link rel="stylesheet" href="/css/index.css">
+    <link rel="stylesheet" href="/css/dashboard.css">
 </head>
 <body>
 
@@ -31,64 +31,74 @@
     </a>
     <hr>
     <ul class="nav nav-pills flex-column mb-auto">
+      <li>
+        <a href="#" class="nav-link active" data-id="estadistica" title="Estadísticas">
+            <i class="bi bi-graph-up me-2" width="16" height="16"></i>
+            <span class="text-ocultar">Estadísticas</span>
+        </a>
+      </li>
       <li class="nav-item">
-        <a href="#" class="nav-link active" data-id="pedido" aria-current="page">
+        <a href="#" class="nav-link text-black" data-id="pedido" aria-current="page" title="Pedidos Admin">
             <i class="bi bi-card-list me-2" width="16" height="16"></i>
             <span class="text-ocultar">Pedidos Admin</span>
         </a>
       </li>
       <li  class="nav-item">
-        <a href="#" class="nav-link text-black" data-id="menu">
+        <a href="#" class="nav-link text-black" data-id="menu" title="Menus">
             <i class="bi bi-ui-checks-grid me-2" width="16" height="16"></i>
           <span class="text-ocultar">Menus</span>
         </a>
       </li>
       <li class="nav-item">
-        <a href="#" class="nav-link text-black" data-id="usuario">
+        <a href="#" class="nav-link text-black" data-id="usuario" title="Usuarios">
             <i class="bi bi-person-fill-gear me-2" width="16" height="16"></i>
             <span class="text-ocultar">Usuarios</span> 
         </a>
       </li>
       <li class="nav-item">
-        <a href="#" class="nav-link text-black" data-id="cliente">
+        <a href="#" class="nav-link text-black" data-id="cliente" title="Clientes">
             <i class="bi bi-people-fill me-2" width="16" height="16"></i>
             <span class="text-ocultar">Clientes</span>
         </a>
       </li>
       <li>
-        <a href="#" class="nav-link text-black" data-id="cocina">
+        <a href="#" class="nav-link text-black" data-id="cocina" title="Cocina">
             <i class="bi bi-fork-knife me-2" width="16" height="16"></i>
             <span class="text-ocultar">Cocina</span>
         </a>
       </li>
       <li>
-        <a href="#" class="nav-link text-black" data-id="entrega">
+        <a href="#" class="nav-link text-black" data-id="entrega" title="Entregas">
             <i class="bi bi-check2-circle me-2" width="16" height="16"></i>
             <span class="text-ocultar">Entregas</span>
         </a>
       </li>
       <li>
-        <a href="#" class="nav-link text-black" data-id="caja">
+        <a href="#" class="nav-link text-black" data-id="caja" title="Caja">
             <i class="bi bi-cash-coin me-2" width="16" height="16"></i>
             <span class="text-ocultar">Caja</span>
         </a>
       </li>
+      
     </ul>
     <hr>
-    <div class="logout btn btn-dark" id="cerrar_session">
+    <div class="btn nombre d-flex align-items-center justify-content-center">
+        <i class="bi bi-person-bounding-box me-2"></i>
+        <span class="text-center text-ocultar"><strong id="nombreUsuario"> </strong></span>
+    </div>
+    <div class="logout btn btn-dark" id="cerrar_session" title="Cerrar Sesión">
       <i class="bi bi-box-arrow-left fs-4"></i>
     </div>
   </div>
   <!-- Fin Sidebar | Fin Menu lateral -->
 
-  <!-- pantallas | En el iframe cargara las pantallas a desarrollar por defecto pedidos -->
-      <iframe id="pantalla" src="/views/pedidos/pedidos.html" frameborder="0"></iframe>
+  <!-- pantallas | En el iframe cargara las pantallas, por defecto pedidos -->
+      <iframe id="pantalla" src="/views/estadistica/estadistica.html" frameborder="0"></iframe>
   <!-- fin pantallas -->
   
-  <script type="text/javascript" src="../../lib/jquery/jquery.min.js"></script>
-  <script type="text/javascript" src="../../lib/bootstrap-5.3.2-dist/js/bootstrap.bundle.min.js"></script>
-  <script type="text/javascript" src="../../lib/bootstrap-5.3.2-dist/js/sidebars.js"></script>
-  <script type="text/javascript" src="../js/event.js"></script>
+  <script type="text/javascript" src="/lib/node_modules/jquery/dist/jquery.min.js"></script>
+  <script type="text/javascript" src="/lib/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  <script type="text/javascript" src="/views/js/event.js"></script>
   
   <script type="text/javascript" src="/lib/node_modules/@pablotheblink/flashyjs/flashy.js"></script>
   

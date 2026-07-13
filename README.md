@@ -12,3 +12,7 @@
 </ul>
 <p>Ubicarse en public/lib y ejecutar <strong>npm install</strong> para la instalacion de las librerias</p>
 <hr>
+
+
+
+<p>Nota: Para usar mPdf se debe habilitar ;extension=gd que este en C:\xampp\php\php.ini</p>

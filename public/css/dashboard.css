@@ -74,10 +74,17 @@ body{
 }
 
 
-@media (max-width: 550px) {
+@media (max-width: 600px) {
 
   .text-ocultar{
-      font-size: 13px;
+      font-size: 11px;
+  }
+}
+
+@media (max-width: 660px) {
+
+  .text-ocultar{
+      font-size: 12px;
   }
 }
 
