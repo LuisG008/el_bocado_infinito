@@ -23,7 +23,7 @@ $(function () {
             $('.list-menu, .spinner-border').toggleClass('d-none');
         });
     }
-
+   
     /**
      * Muestra el prepedido en la vista 
      */
@@ -31,27 +31,67 @@ $(function () {
 
         const list = $('.list-prepedido');
         list.empty();
+
         menus.forEach(menu => {
+
             let precio = formatearMiles(menu.precio);
-            let item = `<li class="list-group-item" data-idmenu="${menu.idmenu}" data-precio="${menu.precio}">
-                        <div class="d-flex justify-content-between">
-                            <h6 class="card-title">${menu.nombre}</h6>
-                            <select class="form-select tipo-consumo" aria-label="Default select example" style="width: 40%;">
-                                <option value="" selected>Tipo Consumo</option>
-                                <option value="1">Consumir en mesa</option>
-                                <option value="2">Para llevar</option>
-                            </select>
-                        </div>
-                        <div class="d-flex justify-content-between pt-2">
-                            <label class="form-check-label d-flex justify-content-end">$ ${precio}</label>
-                            <div class="input-group" style="width: 130px;">
-                                <button class="btn btn-outline-secondary btn-minus" type="button">−</button>
-                                <input type="text" class="form-control text-center quantity" value="1" readonly>
-                                <button class="btn btn-outline-secondary btn-plus" type="button">+</button>
+
+            let item = `
+                <li class="list-group-item" data-idmenu="${menu.idmenu}" data-precio="${menu.precio}">
+                    
+                    <div class="d-flex justify-content-between align-items-center">
+
+                        <h6 class="card-title mb-0">${menu.nombre}</h6>
+                        
+                        <div class="d-flex gap-3">
+                            <div class="form-check">
+                                <input class="form-check-input tipo-consumo"
+                                    type="radio"
+                                    name="tipoConsumo_${menu.idmenu}"
+                                    id="mesa_${menu.idmenu}"
+                                    value="1"
+                                    checked>
+
+                                <label class="form-check-label" for="mesa_${menu.idmenu}">
+                                    Mesa
+                                </label>
                             </div>
+
+                            <div class="form-check">
+                                <input class="form-check-input tipo-consumo"
+                                    type="radio"
+                                    name="tipoConsumo_${menu.idmenu}"
+                                    id="llevar_${menu.idmenu}"
+                                    value="2">
+
+                                <label class="form-check-label" for="llevar_${menu.idmenu}">
+                                    Llevar
+                                </label>
+                            </div>
+
                         </div>
-                    </li>`;
+
+                    </div>
+
+                    <div class="d-flex justify-content-between pt-2">
+
+                        <label class="form-check-label d-flex justify-content-end">
+                            $ ${precio}
+                        </label>
+
+                        <div class="input-group" style="width:130px;">
+                            <button class="btn btn-outline-secondary btn-minus" type="button">−</button>
+                            <input type="text" class="form-control text-center quantity" value="1" readonly>
+                            <button class="btn btn-outline-secondary btn-plus" type="button">+</button>
+                        </div>
+
+                    </div>
+
+                </li>
+            `;
+
             list.append(item);
+
         });
 
         recalcularTotal();
@@ -113,6 +153,7 @@ $(function () {
 
     //PEDIR
     $('#addPedido').on('show.bs.modal', function (event) {
+        /* al pasar a radio ya no aplica esta validación
         $('.list-prepedido .tipo-consumo').removeClass('is-invalid is-valid');
         $('#terminarPedido .form-control').removeClass('is-invalid is-valid');
 
@@ -136,7 +177,7 @@ $(function () {
                     $(this).addClass('is-valid');
                 }
             });
-        }
+        }*/
     });
 
     //Terminar pedido---------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -227,7 +268,7 @@ $(function () {
 
             let idmenu = $(this).data('idmenu');
 
-            let tipoConsumo = $(this).find('.tipo-consumo').val();
+            let tipoConsumo = $(this).find('input.tipo-consumo:checked').val();
 
             let cantidad = $(this).find('.quantity').val();
 

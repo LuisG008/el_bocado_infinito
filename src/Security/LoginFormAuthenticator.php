@@ -16,6 +16,7 @@ use Symfony\Component\Security\Http\SecurityRequestAttributes;
 use Symfony\Component\Security\Http\Util\TargetPathTrait;
 
 use App\Repository\UsuarioRepository;
+use App\Repository\RolRepository;
 use Symfony\Component\Security\Core\Exception\CustomUserMessageAuthenticationException;
 use App\Service\UsuarioService;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -29,7 +30,8 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
 
     public function __construct(
         private UrlGeneratorInterface $urlGenerator,
-        private UsuarioRepository $usuarioRepository
+        private UsuarioRepository $usuarioRepository,
+        private RolRepository $rolRepository
     ) {
     }
 
@@ -41,20 +43,20 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
 
         return new Passport(
             new UserBadge($identificacion, function ($identificacion) {
-            $user = $this->usuarioRepository->findOneBy([
-                'identificacion' => $identificacion
-            ]);
+                $user = $this->usuarioRepository->findOneBy([
+                    'identificacion' => $identificacion
+                ]);
 
-            if (!$user) {
-                throw new CustomUserMessageAuthenticationException('Usuario no encontrado');
-            }
+                if (!$user) {
+                    throw new CustomUserMessageAuthenticationException('Usuario no encontrado');
+                }
 
-            if ($user->getEstado() !== UsuarioService::ESTADO_ACTIVO) {
-                throw new CustomUserMessageAuthenticationException('Usuario inactivo');
-            }
+                if ($user->getEstado() !== UsuarioService::ESTADO_ACTIVO) {
+                    throw new CustomUserMessageAuthenticationException('Usuario inactivo');
+                }
 
-            return $user;
-        }),
+                return $user;
+            }),
             new PasswordCredentials($request->getPayload()->getString('password'))
         );
     }
@@ -66,14 +68,26 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
             return new RedirectResponse($targetPath);
         }*/
 
+
+        $user = $token->getUser();
+
+        $roles = $this->rolRepository->obtenerRolesUsuario($user->getId());
+
+        $request->getSession()->set('usuario', [
+            'id' => $user->getId(),
+            'identificacion' => $user->getIdentificacion(),
+            'nombre' => $user->getNombres(),
+            'roles' => $roles
+        ]);
+        
         $data = [
             'message' => 'Login successful',
             'user' => [
-                'id' => $token->getUser()->getId(),
-                'identificacion' => $token->getUser()->getIdentificacion(),
-                'nombre' => $token->getUser()->getNombres(),
-                'rol' => $token->getUser()->getRoles(),
-                'estado' => $token->getUser()->getEstado()
+                'id' => $user->getId(),
+                'identificacion' => $user->getIdentificacion(),
+                'nombre' => $user->getNombres(),
+                'roles' => $roles,
+                'estado' => $user->getEstado()
             ]
         ];
 

@@ -2,6 +2,8 @@ $(function () {
 
     (function init() {
         loadDataUser();
+        validPermission();
+        cargarPrimerMenuDisponible();
     })();
 
      $('#cerrar_session').on('click', function (event) {
@@ -34,4 +36,37 @@ $(function () {
         $(".nombre").attr("title", JSON.parse(localStorage.getItem('user')).nombre);
     }
     
+    function validPermission() {
+        let user = JSON.parse(localStorage.getItem('user'));
+        $('[data-role]').each(function () {
+
+            let roles = $(this).data('role').split(',');
+
+            let autorizado = roles.some(r => user.roles.includes(r.trim()));
+
+            if (!autorizado) {
+                $(this).hide();
+            }
+
+        });
+    }
+
+    function cargarPrimerMenuDisponible() {
+
+        let primerMenu = $('.nav li:visible a').first();
+
+        if (primerMenu.length === 0) {
+            flashy.error("No tiene permisos para acceder a ningún módulo.");
+            return;
+        }
+
+        primerMenu.addClass('active');
+        primerMenu.removeClass('text-black');
+        
+        $('#pantalla').attr(
+            'src',
+            `/views/${primerMenu.data('id')}/${primerMenu.data('id')}.html`
+        );
+
+    }
 });

@@ -40,4 +40,22 @@ class RolRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
+
+    public function obtenerRolesUsuario(int $idUsuario): array
+    {
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = "
+            SELECT CONCAT('ROLE_', UPPER(c.nombre)) AS rol
+            FROM rol r
+            INNER JOIN cargo c ON c.idcargo = r.fk_cargo
+            WHERE r.fk_usuario = :id
+            AND r.estado = 'Activo'
+            AND c.estado = 'Activo'
+        ";
+
+        return $conn->fetchFirstColumn($sql, [
+            'id' => $idUsuario
+        ]);
+    }
 }

@@ -31,49 +31,49 @@
     </a>
     <hr>
     <ul class="nav nav-pills flex-column mb-auto">
-      <li>
+      <li data-role="ROLE_ADMINISTRADOR">
         <a href="#" class="nav-link active" data-id="estadistica" title="Estadísticas">
             <i class="bi bi-graph-up me-2" width="16" height="16"></i>
             <span class="text-ocultar">Estadísticas</span>
         </a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item" data-role="ROLE_ADMINISTRADOR">
         <a href="#" class="nav-link text-black" data-id="pedido" aria-current="page" title="Pedidos Admin">
             <i class="bi bi-card-list me-2" width="16" height="16"></i>
             <span class="text-ocultar">Pedidos Admin</span>
         </a>
       </li>
-      <li  class="nav-item">
+      <li class="nav-item" data-role="ROLE_ADMINISTRADOR">
         <a href="#" class="nav-link text-black" data-id="menu" title="Menus">
             <i class="bi bi-ui-checks-grid me-2" width="16" height="16"></i>
           <span class="text-ocultar">Menus</span>
         </a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item" data-role="ROLE_ADMINISTRADOR">
         <a href="#" class="nav-link text-black" data-id="usuario" title="Usuarios">
             <i class="bi bi-person-fill-gear me-2" width="16" height="16"></i>
             <span class="text-ocultar">Usuarios</span> 
         </a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item" data-role="ROLE_ADMINISTRADOR">
         <a href="#" class="nav-link text-black" data-id="cliente" title="Clientes">
             <i class="bi bi-people-fill me-2" width="16" height="16"></i>
             <span class="text-ocultar">Clientes</span>
         </a>
       </li>
-      <li>
+      <li data-role="ROLE_ADMINISTRADOR,ROLE_COCINA">
         <a href="#" class="nav-link text-black" data-id="cocina" title="Cocina">
             <i class="bi bi-fork-knife me-2" width="16" height="16"></i>
             <span class="text-ocultar">Cocina</span>
         </a>
       </li>
-      <li>
+      <li data-role="ROLE_ADMINISTRADOR,ROLE_ENTREGA">
         <a href="#" class="nav-link text-black" data-id="entrega" title="Entregas">
             <i class="bi bi-check2-circle me-2" width="16" height="16"></i>
             <span class="text-ocultar">Entregas</span>
         </a>
       </li>
-      <li>
+      <li data-role="ROLE_ADMINISTRADOR,ROLE_CAJA">
         <a href="#" class="nav-link text-black" data-id="caja" title="Caja">
             <i class="bi bi-cash-coin me-2" width="16" height="16"></i>
             <span class="text-ocultar">Caja</span>
@@ -93,7 +93,7 @@
   <!-- Fin Sidebar | Fin Menu lateral -->
 
   <!-- pantallas | En el iframe cargara las pantallas, por defecto pedidos -->
-      <iframe id="pantalla" src="/views/estadistica/estadistica.html" frameborder="0"></iframe>
+      <iframe id="pantalla" src="" frameborder="0"></iframe>
   <!-- fin pantallas -->
   
   <script type="text/javascript" src="/lib/node_modules/jquery/dist/jquery.min.js"></script>

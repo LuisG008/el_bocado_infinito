@@ -104,7 +104,7 @@ class Usuario implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function getRoles(): array
     {
-        return ['ROLE_USER']; // luego lo conectamos con tu tabla rol
+        return ['ROLE_USER'];
     }
 
     public function eraseCredentials(): void
