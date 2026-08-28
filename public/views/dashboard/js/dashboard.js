@@ -7,14 +7,19 @@ $(function () {
     })();
 
      $('#cerrar_session').on('click', function (event) {
+        
         $.ajax({
             type: 'GET',
             url: `/logout`,
             dataType: 'json',
             beforeSend: function () {
-               
+               $("#cerrar_session").empty();
+                $("#cerrar_session").append(`<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                <span class="visually-hidden">Loading...</span>`);
             },
         }).fail((jqXHR) => {
+            $("#cerrar_session").empty();
+            $("#cerrar_session").append(`<i class="bi bi-box-arrow-left fs-4"></i>`);
             console.log(jqXHR);
             let error = JSON.parse(jqXHR.responseText);
             if(error.detail == "The presented password is invalid."){
@@ -25,8 +30,11 @@ $(function () {
         }).done(response => {
             //window.location.href = '/views/login/login.html';
             console.log(response);
+            $("#cerrar_session").empty();
+            $("#cerrar_session").append(`<i class="bi bi-box-arrow-left fs-4"></i>`);
         }).always(() => {
-            
+            $("#cerrar_session").empty();
+            $("#cerrar_session").append(`<i class="bi bi-box-arrow-left fs-4"></i>`);
         });
     });
 

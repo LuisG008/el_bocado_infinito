@@ -56,11 +56,11 @@ $(function () {
                             <div class="numero-menu">
                                 <strong class="me-1">#${item.id}</strong>                       
                             </div>
-                            <div class="estado-menu">
+                            <div class="estado-menu me-1">
                                 <span class="badge ${color}">${text}</span>
                             </div>
                             <div class="accion-menu">
-                                <i class="bi bi-pencil-square" data-bs-toggle="modal" data-bs-target="#editarMenu" data-info='${encodeURIComponent(JSON.stringify(item))}'></i>
+                                <i class="btn bi bi-pencil-square" data-bs-toggle="modal" data-bs-target="#editarMenu" data-info='${encodeURIComponent(JSON.stringify(item))}'></i>
                             </div>
                         </div>
                     </div>

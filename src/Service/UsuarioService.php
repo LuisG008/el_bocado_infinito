@@ -42,18 +42,20 @@ class UsuarioService
         $usuario = new Usuario();
         $rol = new Rol();
 
+        $estado = $data['estado'] ?? self::ESTADO_ACTIVO;
+
         $usuario->setIdentificacion($data['identificacion']);
         $usuario->setNombres($data['nombres']);
         $usuario->setTelefono($data['telefono']);
         $usuario->setClave(password_hash($data['clave'], PASSWORD_BCRYPT));
-        $usuario->setEstado($data['estado']);
+        $usuario->setEstado($estado);
         
         $this->em->persist($usuario);
         $this->em->flush();
         
         $rol->setFkUsuario($usuario->getId());
         $rol->setFkCargo($data['idcargo']);
-        $rol->setEstado($data['estado']);
+        $rol->setEstado($estado);
 
         $this->em->persist($rol);
         $this->em->flush();

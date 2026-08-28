@@ -34,6 +34,7 @@ $(function () {
     });
 
     function validarLogin() {
+                
         $.ajax({
             type: 'POST',
             url: `/login`,
@@ -43,8 +44,12 @@ $(function () {
                 password: $('#password').val()
             },
             beforeSend: function () {
+                $("#ingresar").empty();
+                $("#ingresar").append(`<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                <span class="visually-hidden">Loading...</span>`);
             },
         }).fail((jqXHR) => {
+            $("#ingresar").text(`Ingresar`);
             console.log(jqXHR);
             let error = JSON.parse(jqXHR.responseText);
             if(error.detail == "The presented password is invalid."){
@@ -55,7 +60,9 @@ $(function () {
         }).done(response => {
             localStorage.setItem('user', JSON.stringify(response.user));
             window.location.href = '/views/dashboard/dashboard.html';
+            $("#ingresar").text(`Ingresar`);
         }).always(() => {
+            $("#ingresar").text(`Ingresar`);
         });
     }
 

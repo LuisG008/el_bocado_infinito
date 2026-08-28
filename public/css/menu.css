@@ -4,11 +4,12 @@
 }
 
 .div-secundario-menu{
-    height: 90vh;
+    height: 80vh;
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: start;
+    overflow-y: auto;
 }
 .loading{
     height: 90vh;

@@ -34,7 +34,6 @@ final class MenuController extends AbstractController
         try {
             $data = $menuService->allMenus();
             
-            
             return $this->json(['data' => $data]);
 
         } catch (\Throwable $th) {
@@ -64,7 +63,7 @@ final class MenuController extends AbstractController
             // Capturar el archivo
             $imagenFile = $request->files->get('imagen');
            
-            if($data['nombre'] == '' || $data['descripcion'] == '' ||  $data['precio'] == '' || $data['estado'] == ''){
+            if($data['nombre'] == '' || $data['descripcion'] == '' ||  $data['precio'] == '' || $data['estado'] == '' || !$imagenFile){
                 throw new InvalidArgumentException("Todos los campos son obligatorios", Response::HTTP_BAD_REQUEST);
             }
 
@@ -122,7 +121,6 @@ final class MenuController extends AbstractController
 
         } catch (\Throwable $th) {
             $Connection->rollBack();
-            dd($th);
             return $this->json([
                 'message' => $th->getMessage()
                 ], $th->getCode() ?: Response::HTTP_INTERNAL_SERVER_ERROR
@@ -140,8 +138,6 @@ final class MenuController extends AbstractController
     #[Route('/buscar', name: 'buscador_menu', methods: ['GET'])]
     public function buscar(Request $request): Response
     {
-        $Connection = $this->em->getConnection();
-
         try {
             $texto = $request->query->get('texto', '');
 
@@ -151,13 +147,11 @@ final class MenuController extends AbstractController
             
             $data = $data ?: [];
             
-            //$Connection->commit();
             return $this->json([
                 'data' => $data
             ]);
 
         } catch (\Throwable $th) {
-            //$Connection->rollBack();
             
             return $this->json([
                 'message' => $th->getMessage()
